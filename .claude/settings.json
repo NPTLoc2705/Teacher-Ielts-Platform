@@ -1,0 +1,48 @@
+{
+  "env": {
+    "ASPNETCORE_ENVIRONMENT": "Development",
+    "DOTNET_WATCH_SUPPRESS_EMOJIS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build*)",
+      "Bash(dotnet run*)",
+      "Bash(dotnet test*)",
+      "Bash(dotnet ef migrations*)",
+      "Bash(dotnet ef database*)",
+      "Bash(dotnet restore*)",
+      "Bash(dotnet format*)",
+      "Bash(git status)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git branch*)",
+      "Bash(git stash*)",
+      "Bash(npm run dev*)",
+      "Bash(npm run build*)",
+      "Bash(npm run check*)",
+      "Bash(npx tsc*)",
+      "Bash(npx vite*)",
+      "Bash(cat*)",
+      "Bash(ls*)",
+      "Bash(dir*)",
+      "Bash(find*)",
+      "Bash(grep*)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(git force*)",
+      "Bash(dotnet ef database drop*)",
+      "Bash(rm -rf*)",
+      "Bash(del /f*)"
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "impeccable@impeccable": true,
+    "code-review@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "serena@claude-plugins-official": true,
+    "claude-mem@thedotmack": true
+  }
+}
