@@ -112,6 +112,18 @@ export default function LoginPage() {
                 {isLoading ? 'Dang dang nhap...' : 'Dang nhap'}
               </Button>
             </form>
+
+            {/* Link to Register */}
+            <div className="mt-6 pt-5 border-t border-[#e2e8f0] text-center text-xs text-[#64748b]">
+              Chưa có tài khoản giáo viên?{' '}
+              <button
+                type="button"
+                onClick={() => setLocation('/register')}
+                className="font-semibold text-[#183a68] hover:underline cursor-pointer"
+              >
+                Đăng ký ngay
+              </button>
+            </div>
           </div>
         </div>
       </div>

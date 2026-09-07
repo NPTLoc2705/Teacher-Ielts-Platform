@@ -1,11 +1,14 @@
-﻿using BusinessObject;
+using BusinessObject;
 using BusinessObject.evaluation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DAL
 {
     public class TeacherPlatformDbContext : DbContext
     {
+        public TeacherPlatformDbContext() { }
+
         public TeacherPlatformDbContext(DbContextOptions<TeacherPlatformDbContext> options)
             : base(options) { }
 
@@ -30,6 +33,50 @@ namespace DAL
         public DbSet<TeacherGradingStar> TeacherGradingStars { get; set; }
         public DbSet<TeacherAiRating> TeacherAiRatings { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql(GetConnectionString());
+            }
+        }
+
+        private static string? _cachedConnectionString;
+        private static string GetConnectionString()
+        {
+            if (_cachedConnectionString != null)
+                return _cachedConnectionString;
+
+            var basePath = Directory.GetCurrentDirectory();
+            var appsettingsPath = Path.Combine(basePath, "appsettings.json");
+
+            if (!File.Exists(appsettingsPath))
+            {
+                var candidate = Path.Combine(basePath, "..", "TeacherPlatform");
+                if (Directory.Exists(candidate) && File.Exists(Path.Combine(candidate, "appsettings.json")))
+                {
+                    basePath = Path.GetFullPath(candidate);
+                }
+                else
+                {
+                    var baseAppDir = AppDomain.CurrentDomain.BaseDirectory;
+                    if (File.Exists(Path.Combine(baseAppDir, "appsettings.json")))
+                    {
+                        basePath = baseAppDir;
+                    }
+                }
+            }
+
+            IConfiguration configuration = new ConfigurationBuilder()
+                    .SetBasePath(basePath)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                    .Build();
+
+            _cachedConnectionString = configuration.GetConnectionString("DefaultConnection")
+                ?? configuration["ConnectionStrings:DefaultConnection"]
+                ?? throw new InvalidOperationException("ConnectionStrings:DefaultConnection is not configured.");
+            return _cachedConnectionString;
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -56,6 +103,31 @@ namespace DAL
             // Ignore navigation collection that User entity might have but we do not declare
             modelBuilder.Entity<User>().Ignore(u => u.Id); // re-include below via HasKey
             modelBuilder.Entity<User>().HasKey(u => u.Id);
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd();
+
+                entity.HasIndex(e => e.Email)
+                    .IsUnique()
+                    .HasDatabaseName("IX_User_Email");
+
+                entity.HasIndex(e => e.Username)
+                    .HasDatabaseName("IX_User_Username");
+
+                entity.Property(e => e.Createdat).HasColumnName("Createdat")
+                    .HasDefaultValueSql("timezone('utc', now())");
+
+                entity.Property(e => e.Role)
+                   .HasConversion<string>()
+                         .HasDefaultValue(UserRole.User)
+                         .HasMaxLength(20);
+                entity.Property(e => e.EmailVerified)
+                    .HasDefaultValue(false);
+               
+            });
 
             // TaskHistory: CompletionTimeMinutes is a string column
             modelBuilder.Entity<TaskHistory>()

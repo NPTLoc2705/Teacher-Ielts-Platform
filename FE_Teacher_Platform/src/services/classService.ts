@@ -1,4 +1,4 @@
-﻿import { authHelper } from '../lib/auth';
+import { authHelper } from '../lib/auth';
 import type {
   ClassResponse,
   CreateClassRequest,
@@ -16,7 +16,57 @@ import type {
 const API_BASE_URL = `${import.meta.env.VITE_BACKEND}/api/Class`;
 
 interface ErrorResponse {
-  message: string;
+  message?: string;
+  error?: string;
+}
+
+async function requestJson<T>(url: string, init?: RequestInit, fallbackError = 'Request failed'): Promise<T> {
+  const res = await fetch(url, init);
+  if (!res.ok) {
+    let message = fallbackError;
+    try {
+      const text = await res.text();
+      if (text) {
+        const parsed = JSON.parse(text) as ErrorResponse;
+        message = parsed.message || parsed.error || fallbackError;
+      } else if (res.status === 401) {
+        authHelper.removeToken();
+        message = 'Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.';
+      } else if (res.status === 403) {
+        message = 'Tài khoản không có quyền thực hiện thao tác này.';
+      } else {
+        message = `${fallbackError} (HTTP ${res.status})`;
+      }
+    } catch {
+      message = `${fallbackError} (HTTP ${res.status})`;
+    }
+    throw new Error(message);
+  }
+  return res.json();
+}
+
+async function requestVoid(url: string, init?: RequestInit, fallbackError = 'Request failed'): Promise<void> {
+  const res = await fetch(url, init);
+  if (!res.ok) {
+    let message = fallbackError;
+    try {
+      const text = await res.text();
+      if (text) {
+        const parsed = JSON.parse(text) as ErrorResponse;
+        message = parsed.message || parsed.error || fallbackError;
+      } else if (res.status === 401) {
+        authHelper.removeToken();
+        message = 'Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.';
+      } else if (res.status === 403) {
+        message = 'Tài khoản không có quyền thực hiện thao tác này.';
+      } else {
+        message = `${fallbackError} (HTTP ${res.status})`;
+      }
+    } catch {
+      message = `${fallbackError} (HTTP ${res.status})`;
+    }
+    throw new Error(message);
+  }
 }
 
 /** Convert yyyy-MM-dd to ISO string for the BE */
@@ -44,99 +94,80 @@ export const mapToClassItem = (cls: ClassResponse) => ({
 export const classService = {
   /** GET /api/Class — All classes for the current teacher */
   async getMyClasses(): Promise<ClassResponse[]> {
-    const res = await fetch(API_BASE_URL, { headers: authHelper.getAuthHeaders() });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to fetch classes');
-    return res.json();
+    return requestJson<ClassResponse[]>(API_BASE_URL, { headers: authHelper.getAuthHeaders() }, 'Failed to fetch classes');
   },
 
   /** GET /api/Class/:id */
   async getClassDetail(classId: number): Promise<ClassResponse> {
-    const res = await fetch(`${API_BASE_URL}/${classId}`, { headers: authHelper.getAuthHeaders() });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to fetch class detail');
-    return res.json();
+    return requestJson<ClassResponse>(`${API_BASE_URL}/${classId}`, { headers: authHelper.getAuthHeaders() }, 'Failed to fetch class detail');
   },
 
   /** POST /api/Class */
   async createClass(data: CreateClassRequest): Promise<ClassResponse> {
-    const res = await fetch(API_BASE_URL, {
+    return requestJson<ClassResponse>(API_BASE_URL, {
       method: 'POST',
       headers: authHelper.getAuthHeaders(),
       body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to create class');
-    return res.json();
+    }, 'Failed to create class');
   },
 
   /** PUT /api/Class/:id */
   async updateClass(classId: number, data: UpdateClassRequest): Promise<ClassResponse> {
-    const res = await fetch(`${API_BASE_URL}/${classId}`, {
+    return requestJson<ClassResponse>(`${API_BASE_URL}/${classId}`, {
       method: 'PUT',
       headers: authHelper.getAuthHeaders(),
       body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to update class');
-    return res.json();
+    }, 'Failed to update class');
   },
 
   /** DELETE /api/Class/:id */
   async deleteClass(classId: number): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/${classId}`, {
+    return requestVoid(`${API_BASE_URL}/${classId}`, {
       method: 'DELETE',
       headers: authHelper.getAuthHeaders(),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to delete class');
+    }, 'Failed to delete class');
   },
 
   /** GET /api/Class/:id/stats */
   async getClassStats(classId: number): Promise<ClassStatsResponse> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/stats`, { headers: authHelper.getAuthHeaders() });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to fetch class stats');
-    return res.json();
+    return requestJson<ClassStatsResponse>(`${API_BASE_URL}/${classId}/stats`, { headers: authHelper.getAuthHeaders() }, 'Failed to fetch class stats');
   },
 
   /** GET /api/Class/:classId/search-students */
   async searchStudents(classId: number, query: string): Promise<StudentSearchResult[]> {
     if (query.trim().length < 2) return [];
-    const res = await fetch(
+    return requestJson<StudentSearchResult[]>(
       `${API_BASE_URL}/${classId}/search-students?query=${encodeURIComponent(query)}`,
       { headers: authHelper.getAuthHeaders() },
+      'Search failed'
     );
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Search failed');
-    return res.json();
   },
 
   /** POST /api/Class/:classId/enroll */
   async enrollStudents(classId: number, studentIds: number[]): Promise<EnrollStudentsResponse> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/enroll`, {
+    return requestJson<EnrollStudentsResponse>(`${API_BASE_URL}/${classId}/enroll`, {
       method: 'POST',
       headers: authHelper.getAuthHeaders(),
       body: JSON.stringify({ studentIds }),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Enroll failed');
-    return res.json();
+    }, 'Enroll failed');
   },
 
   /** GET /api/Class/:classId/students */
   async getEnrolledStudents(classId: number): Promise<EnrolledStudent[]> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/students`, { headers: authHelper.getAuthHeaders() });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to fetch students');
-    return res.json();
+    return requestJson<EnrolledStudent[]>(`${API_BASE_URL}/${classId}/students`, { headers: authHelper.getAuthHeaders() }, 'Failed to fetch students');
   },
 
   /** DELETE /api/Class/:classId/students/:studentId */
   async removeStudent(classId: number, studentId: number): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/students/${studentId}`, {
+    return requestVoid(`${API_BASE_URL}/${classId}/students/${studentId}`, {
       method: 'DELETE',
       headers: authHelper.getAuthHeaders(),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to remove student');
+    }, 'Failed to remove student');
   },
 
   /** GET /api/Class/:classId/grading-items */
   async getClassGradingItems(classId: number): Promise<ClassGradingItem[]> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/grading-items`, { headers: authHelper.getAuthHeaders() });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to fetch grading items');
-    return res.json();
+    return requestJson<ClassGradingItem[]>(`${API_BASE_URL}/${classId}/grading-items`, { headers: authHelper.getAuthHeaders() }, 'Failed to fetch grading items');
   },
 
   /** GET /api/Class/all-grading-items */
@@ -164,30 +195,28 @@ export const classService = {
     if (params.page) sp.set('page', params.page.toString());
     if (params.pageSize) sp.set('pageSize', params.pageSize.toString());
 
-    const res = await fetch(`${API_BASE_URL}/all-grading-items?${sp.toString()}`, {
-      headers: authHelper.getAuthHeaders(),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to fetch grading items');
-    return res.json();
+    return requestJson<{ items: ClassGradingItem[]; totalCount: number; totalPages: number }>(
+      `${API_BASE_URL}/all-grading-items?${sp.toString()}`,
+      { headers: authHelper.getAuthHeaders() },
+      'Failed to fetch grading items'
+    );
   },
 
   /** PATCH /api/Class/grading-items/:taskHistoryId/grading-mode */
   async setGradingMode(taskHistoryId: number, gradingMode: 'ai' | 'self'): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/grading-items/${taskHistoryId}/grading-mode`, {
+    return requestVoid(`${API_BASE_URL}/grading-items/${taskHistoryId}/grading-mode`, {
       method: 'PATCH',
       headers: authHelper.getAuthHeaders(),
       body: JSON.stringify({ gradingMode }),
-    });
-    if (!res.ok) throw new Error('Failed to set grading mode');
+    }, 'Failed to set grading mode');
   },
 
   /** PATCH /api/Class/:classId/grading-items/:taskHistoryId/hide */
   async hideGradingItem(classId: number, taskHistoryId: number): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/grading-items/${taskHistoryId}/hide`, {
+    return requestVoid(`${API_BASE_URL}/${classId}/grading-items/${taskHistoryId}/hide`, {
       method: 'PATCH',
       headers: authHelper.getAuthHeaders(),
-    });
-    if (!res.ok) throw new Error('Failed to hide grading item');
+    }, 'Failed to hide grading item');
   },
 
   /** PATCH /api/Class/:classId/grading-items/:taskHistoryId/star */
@@ -196,13 +225,15 @@ export const classService = {
     taskHistoryId: number,
     isStarred: boolean,
   ): Promise<{ taskHistoryId: number; isStarred: boolean }> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/grading-items/${taskHistoryId}/star`, {
-      method: 'PATCH',
-      headers: authHelper.getAuthHeaders(),
-      body: JSON.stringify({ isStarred }),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to update star');
-    return res.json();
+    return requestJson<{ taskHistoryId: number; isStarred: boolean }>(
+      `${API_BASE_URL}/${classId}/grading-items/${taskHistoryId}/star`,
+      {
+        method: 'PATCH',
+        headers: authHelper.getAuthHeaders(),
+        body: JSON.stringify({ isStarred }),
+      },
+      'Failed to update star'
+    );
   },
 
   /** PATCH /api/Class/:classId/grading-items/:taskHistoryId/evaluation */
@@ -212,20 +243,20 @@ export const classService = {
     targetTaskType: 'task1' | 'task2',
     evaluationData: TeacherEvaluationPayload,
   ): Promise<ClassGradingItem> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/grading-items/${taskHistoryId}/evaluation`, {
-      method: 'PATCH',
-      headers: authHelper.getAuthHeaders(),
-      body: JSON.stringify({ targetTaskType, evaluationData }),
-    });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to update evaluation');
-    return res.json();
+    return requestJson<ClassGradingItem>(
+      `${API_BASE_URL}/${classId}/grading-items/${taskHistoryId}/evaluation`,
+      {
+        method: 'PATCH',
+        headers: authHelper.getAuthHeaders(),
+        body: JSON.stringify({ targetTaskType, evaluationData }),
+      },
+      'Failed to update evaluation'
+    );
   },
 
   /** GET /api/Class/:classId/chart-data */
   async getChartData(classId: number): Promise<ClassChartDataResponse> {
-    const res = await fetch(`${API_BASE_URL}/${classId}/chart-data`, { headers: authHelper.getAuthHeaders() });
-    if (!res.ok) throw new Error(((await res.json()) as ErrorResponse).message || 'Failed to fetch chart data');
-    return res.json();
+    return requestJson<ClassChartDataResponse>(`${API_BASE_URL}/${classId}/chart-data`, { headers: authHelper.getAuthHeaders() }, 'Failed to fetch chart data');
   },
 
   /** POST /api/Class/grading-items/:taskHistoryId/ai-rating */
@@ -233,29 +264,20 @@ export const classService = {
     taskHistoryId: number,
     data: { aiFeedbackRating: number; teacherConfidenceRating: number },
   ): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/grading-items/${taskHistoryId}/ai-rating`, {
+    return requestVoid(`${API_BASE_URL}/grading-items/${taskHistoryId}/ai-rating`, {
       method: 'POST',
       headers: authHelper.getAuthHeaders(),
       body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error('Failed to submit AI rating');
+    }, 'Failed to submit AI rating');
   },
 
   /** GET /api/TaskHistory/:taskHistoryId/detail */
   async getTaskHistoryDetail(taskHistoryId: number): Promise<TaskHistoryDetail> {
-    const res = await fetch(`${import.meta.env.VITE_BACKEND}/api/TaskHistory/${taskHistoryId}/detail`, {
-      headers: authHelper.getAuthHeaders(),
-    });
-    if (!res.ok) {
-      const raw = await res.text();
-      try {
-        const parsed = raw ? (JSON.parse(raw) as ErrorResponse) : null;
-        throw new Error(parsed?.message || `Failed to fetch task history detail (HTTP ${res.status})`);
-      } catch {
-        throw new Error(`Failed to fetch task history detail (HTTP ${res.status})`);
-      }
-    }
-    return res.json();
+    return requestJson<TaskHistoryDetail>(
+      `${import.meta.env.VITE_BACKEND}/api/TaskHistory/${taskHistoryId}/detail`,
+      { headers: authHelper.getAuthHeaders() },
+      'Failed to fetch task history detail'
+    );
   },
 };
 

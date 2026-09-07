@@ -5,6 +5,7 @@ import { ToastProvider } from './components/ui/Toast';
 
 // Pages
 import LoginPage from './pages/login';
+import RegisterPage from './pages/register';
 import TeacherHome from './pages/teacher-home';
 import GradingCenter from './pages/grading-center';
 import ClassProgress from './pages/class-progress';
@@ -62,6 +63,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
 
       <Route path="/teacher">
         <TeacherOnlyRoute>

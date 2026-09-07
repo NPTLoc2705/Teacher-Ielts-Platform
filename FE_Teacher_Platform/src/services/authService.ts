@@ -23,6 +23,13 @@ interface ErrorResponse {
   message: string;
 }
 
+export interface RegisterRequest {
+  email: string;
+  username: string;
+  password: string;
+  displayName?: string;
+}
+
 export const HARDCODED_TEACHER_CREDENTIALS = {
   email: 'teacher@wispace.edu.vn',
   password: 'teacher123',
@@ -37,53 +44,96 @@ export const HARDCODED_TEACHER_USER: UserInfo = {
   displayName: 'Teacher Demo',
 };
 
-const MOCK_TOKEN = 'mock-teacher-jwt-token';
-
 export const authService = {
   async login(email: string, password: string): Promise<LoginResponse> {
-    // Check if hardcoded teacher account is used
-    if (
-      email.trim().toLowerCase() === HARDCODED_TEACHER_CREDENTIALS.email.toLowerCase() &&
-      password === HARDCODED_TEACHER_CREDENTIALS.password
-    ) {
-      const mockResponse: LoginResponse = {
-        message: 'Đăng nhập thành công với tài khoản mẫu',
-        token: MOCK_TOKEN,
-        refreshToken: 'mock-refresh-token',
-        refreshTokenExpiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-        user: HARDCODED_TEACHER_USER,
-      };
-      authHelper.setToken(mockResponse.token);
-      return mockResponse;
-    }
-
     const res = await fetch(`${API_BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
+
     if (!res.ok) {
-      const err = (await res.json()) as ErrorResponse;
-      throw new Error(err.message || 'Login failed');
+      let message = 'Đăng nhập thất bại';
+      try {
+        const text = await res.text();
+        if (text) {
+          const err = JSON.parse(text) as ErrorResponse;
+          message = err.message || message;
+        } else if (res.status === 401) {
+          message = 'Email hoặc mật khẩu không chính xác';
+        } else if (res.status === 403) {
+          message = 'Tài khoản không có quyền truy cập hệ thống giáo viên';
+        }
+      } catch {
+        message = `Đăng nhập thất bại (${res.status})`;
+      }
+      throw new Error(message);
     }
+
     const data = (await res.json()) as LoginResponse;
     authHelper.setToken(data.token);
     return data;
   },
 
+  async register(data: RegisterRequest): Promise<LoginResponse> {
+    const res = await fetch(`${API_BASE_URL}/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      let message = 'Đăng ký thất bại';
+      try {
+        const text = await res.text();
+        if (text) {
+          const err = JSON.parse(text) as ErrorResponse;
+          message = err.message || message;
+        } else if (res.status === 409) {
+          message = 'Email hoặc tên đăng nhập đã được sử dụng';
+        } else if (res.status === 400) {
+          message = 'Thông tin đăng ký không hợp lệ';
+        }
+      } catch {
+        message = `Đăng ký thất bại (${res.status})`;
+      }
+      throw new Error(message);
+    }
+
+    const result = (await res.json()) as LoginResponse;
+    authHelper.setToken(result.token);
+    return result;
+  },
+
   async getProfile(): Promise<UserInfo> {
     const token = authHelper.getToken();
-    if (token === MOCK_TOKEN) {
-      return HARDCODED_TEACHER_USER;
+    // Invalidate stale mock tokens from previous runs
+    if (token === 'mock-teacher-jwt-token') {
+      authHelper.removeToken();
+      throw new Error('Token không hợp lệ, vui lòng đăng nhập lại');
     }
 
     const res = await fetch(`${API_BASE_URL}/profile`, {
       headers: authHelper.getAuthHeaders(),
     });
+
     if (!res.ok) {
-      const err = (await res.json()) as ErrorResponse;
-      throw new Error(err.message || 'Failed to get profile');
+      let message = 'Không thể lấy thông tin người dùng';
+      try {
+        const text = await res.text();
+        if (text) {
+          const err = JSON.parse(text) as ErrorResponse;
+          message = err.message || message;
+        } else if (res.status === 401) {
+          authHelper.removeToken();
+          message = 'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại';
+        }
+      } catch {
+        message = `Không thể lấy thông tin người dùng (${res.status})`;
+      }
+      throw new Error(message);
     }
+
     return res.json();
   },
 
@@ -92,6 +142,11 @@ export const authService = {
   },
 
   isLoggedIn(): boolean {
-    return !!authHelper.getToken();
+    const token = authHelper.getToken();
+    if (token === 'mock-teacher-jwt-token') {
+      authHelper.removeToken();
+      return false;
+    }
+    return !!token;
   },
 };
