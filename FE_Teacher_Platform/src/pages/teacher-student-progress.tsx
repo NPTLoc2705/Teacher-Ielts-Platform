@@ -63,13 +63,13 @@ export default function TeacherStudentProgressPage() {
         </div>
 
         {/* Student Profile Banner */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="bg-white rounded-lg border border-[#e2e8f0] p-6 shadow-none flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-2xl bg-[#1fb2aa]/10 text-[#1fb2aa] flex items-center justify-center font-bold text-2xl">
+            <div className="h-16 w-16 rounded-lg bg-[#eaf2fd] text-[#183a68] flex items-center justify-center font-bold text-2xl">
               {student?.displayName ? student.displayName.charAt(0).toUpperCase() : <User className="h-8 w-8" />}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="font-display text-3xl font-bold text-[#0f172a] tracking-tight">
                 {student?.displayName || (loading ? 'Đang tải...' : 'Học viên')}
               </h1>
               <p className="text-sm text-gray-500">{student?.email || 'Chưa cập nhật email'}</p>
@@ -82,17 +82,17 @@ export default function TeacherStudentProgressPage() {
           </div>
 
           <div className="flex items-center gap-4 w-full md:w-auto">
-            <div className="bg-[#f0f9f9] border border-[#1fb2aa]/20 rounded-xl px-5 py-3 text-center min-w-[120px]">
+            <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-lg px-5 py-3 text-center min-w-[120px]">
               <span className="text-xs text-gray-500 font-medium block">Điểm trung bình</span>
-              <span className="text-2xl font-black text-[#1fb2aa]">
+              <span className="text-2xl font-black text-[#183a68]">
                 {student?.averageScore !== undefined && student?.averageScore !== null
                   ? student.averageScore.toFixed(1)
                   : '--'}
               </span>
             </div>
-            <div className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 text-center min-w-[120px]">
+            <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-lg px-5 py-3 text-center min-w-[120px]">
               <span className="text-xs text-gray-500 font-medium block">Số bài đã nộp</span>
-              <span className="text-2xl font-black text-gray-800">
+              <span className="text-2xl font-black text-[#0f172a]">
                 {student?.totalEssays ?? 0}
               </span>
             </div>

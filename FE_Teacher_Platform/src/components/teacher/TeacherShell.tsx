@@ -32,9 +32,11 @@ export default function TeacherShell({ children, contentClassName = '' }: Teache
       >
         <div className={`p-5 flex items-center ${isSidebarCollapsed ? 'justify-center' : 'justify-between'} border-b border-[#e2e8f0]/60 mb-3`}>
           <div className="flex items-center gap-2.5">
-            <div className="bg-[#183a68] p-2 rounded-lg text-white shrink-0">
-              <GraduationCap className="h-5 w-5" />
-            </div>
+            <img
+              src="/logo w-04.png"
+              alt="Wispace Logo"
+              className="h-8 w-auto object-contain shrink-0"
+            />
             {!isSidebarCollapsed && (
               <div className="overflow-hidden whitespace-nowrap">
                 <h1 className="font-bold text-[#183a68] text-base leading-tight tracking-tight">Wispace</h1>
@@ -128,7 +130,7 @@ function NavItem({
         flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all duration-150 cursor-pointer select-none
         ${
           active
-            ? 'bg-[#eaf2fd] text-[#183a68] font-bold border-l-3 border-[#183a68]'
+            ? 'bg-[#eaf2fd] text-[#183a68] font-bold'
             : 'text-[#64748b] hover:bg-white hover:text-[#183a68] font-medium'
         }
         ${collapsed ? 'justify-center' : ''}

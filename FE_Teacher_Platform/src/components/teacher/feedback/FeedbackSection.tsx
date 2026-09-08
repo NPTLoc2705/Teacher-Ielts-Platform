@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   ClipboardCheck,
   CheckCircle2,
@@ -195,7 +195,7 @@ const DetailedFeedbackPanel: React.FC<DetailedFeedbackProps> = ({
   };
 
   return (
-    <div ref={panelRef} className="bg-white border border-slate-200 rounded-xl p-8 shadow-sm h-full flex flex-col">
+    <div ref={panelRef} className="bg-white border border-slate-200 rounded-lg p-8 h-full flex flex-col">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2 text-[#1fb2aa] font-bold">
           <ClipboardCheck size={20} />
@@ -217,7 +217,7 @@ const DetailedFeedbackPanel: React.FC<DetailedFeedbackProps> = ({
                 <button onClick={cancelBulkEdit} className="text-slate-500 hover:bg-slate-50 border border-slate-200 px-3 py-1 rounded-md text-[10px] font-bold transition-all flex items-center gap-1.5">
                   <X size={14} /> Huá»·
                 </button>
-                <button onClick={saveBulkEdit} className="bg-[#1fb2aa] hover:bg-[#1a9b94] text-white px-3 py-1 rounded-md text-[10px] font-bold transition-all flex items-center gap-1.5 shadow-sm">
+                <button onClick={saveBulkEdit} className="bg-[#1fb2aa] hover:bg-[#1a9b94] text-white px-3 py-1 rounded-md text-[10px] font-bold transition-all flex items-center gap-1.5">
                   <Save size={14} /> LÆ°u
                 </button>
               </div>
@@ -237,7 +237,7 @@ const DetailedFeedbackPanel: React.FC<DetailedFeedbackProps> = ({
               onClick={() => toggleFilter(cat)}
               className={`px-4 py-1 rounded-full text-xs font-bold transition-all border ${
                 isSelected
-                  ? `${colors.bg} ${colors.text} ${colors.border} shadow-sm scale-105`
+                  ? `${colors.bg} ${colors.text} ${colors.border}`
                   : 'bg-white border-slate-200 text-slate-400 hover:border-slate-300 hover:text-slate-600'
               }`}
             >
@@ -275,19 +275,19 @@ const DetailedFeedbackPanel: React.FC<DetailedFeedbackProps> = ({
                 onClick={(e) => handleCardClick(e, item.id)}
                 className={`bg-white relative p-5 rounded-lg border transition-all flex flex-col scroll-mt-2 ${
                   isEditing || isSelected
-                    ? `border-[#1fb2aa] shadow-lg ${isSelected && !editingId && !isBulkEditing ? 'ring-4 ring-teal-100 z-10' : 'ring-4 ring-teal-50'}`
+                    ? `border-[#1fb2aa] ${isSelected && !editingId && !isBulkEditing ? 'ring-2 ring-teal-100 z-10' : 'ring-2 ring-teal-50'}`
                     : 'border-slate-100 hover:border-teal-200 cursor-pointer'
                 } ${item.id === recentId ? 'ring-2 ring-amber-400/30' : ''}`}
               >
                 {(item.category || (item.isAiGenerated && !isEditing)) && (
                   <div className="flex items-center gap-2 mb-3">
                     {item.category && (
-                      <div className={`px-2.5 py-0.5 rounded-full border ${colors.bg} ${colors.text} ${colors.border} text-[10px] font-black uppercase tracking-wider shadow-sm shrink-0`}>
+                      <div className={`px-2.5 py-0.5 rounded-full border ${colors.bg} ${colors.text} ${colors.border} text-[10px] font-black uppercase tracking-wider shrink-0`}>
                         {item.category}
                       </div>
                     )}
                     {item.isAiGenerated && !isEditing && (
-                      <div className="px-2.5 py-0.5 rounded-full border border-teal-200 bg-[#ccfbf1] text-[#0f766e] text-[10px] font-bold uppercase tracking-wider shadow-sm shrink-0">
+                      <div className="px-2.5 py-0.5 rounded-full border border-teal-200 bg-[#ccfbf1] text-[#0f766e] text-[10px] font-bold uppercase tracking-wider shrink-0">
                         AI
                       </div>
                     )}
@@ -393,7 +393,7 @@ const DetailedFeedbackPanel: React.FC<DetailedFeedbackProps> = ({
         <div
           ref={menuRef}
           style={{ top: contextMenu.y - 10, left: contextMenu.x }}
-          className="fixed z-[120] bg-white border border-slate-200 rounded-lg shadow-xl py-1 w-32 overflow-hidden transform -translate-x-1/2 -translate-y-full animate-in fade-in zoom-in duration-150"
+          className="fixed z-[120] bg-white border border-slate-200 rounded-lg py-1 w-32 overflow-hidden transform -translate-x-1/2 -translate-y-full"
         >
           <button onClick={() => { setEditingId(contextMenu.id); setContextMenu(null); }} className="w-full text-left px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 flex items-center gap-2 transition-colors">
             <Edit2 size={12} className="text-[#1fb2aa]" /> Chá»‰nh sá»­a
@@ -487,8 +487,8 @@ const AssessmentPanel: React.FC<AssessmentPanelProps> = ({
       </div>
 
       {/* Strengths */}
-      <div className="bg-green-50/50 border border-green-200 rounded-xl p-6 shadow-sm">
-        <div className="flex items-center gap-2 text-green-600 font-bold mb-4">
+      <div className="bg-white border border-[#e2e8f0] rounded-lg p-6">
+        <div className="flex items-center gap-2 text-teal-600 font-bold mb-4">
           <CheckCircle2 size={20} /> Strengths
         </div>
         <div className="space-y-3">
@@ -540,7 +540,7 @@ const AssessmentPanel: React.FC<AssessmentPanelProps> = ({
                     placeholder="Nháº­p Ä‘iá»ƒm cá»™ng khÃ¡c..."
                     className="flex-1 bg-white border border-green-200 rounded-lg px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-green-500/20"
                   />
-                  <button onClick={saveOtherStrength} className="bg-[#1fb2aa] text-white px-3 py-1 rounded-lg text-xs font-bold shadow-sm hover:bg-[#1a9b94] transition-all">LÆ°u</button>
+                  <button onClick={saveOtherStrength} className="bg-[#183a68] text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-[#0f2a4a] transition-all">Lưu</button>
                   <button onClick={() => { setOtherStrengthText(''); setIsAddingOtherStrength(false); }} className="bg-white border border-slate-200 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all">Huá»·</button>
                 </div>
               )}
@@ -550,7 +550,7 @@ const AssessmentPanel: React.FC<AssessmentPanelProps> = ({
       </div>
 
       {/* Weaknesses */}
-      <div className="bg-amber-50/50 border border-amber-200 rounded-xl p-6 shadow-sm">
+      <div className="bg-white border border-[#e2e8f0] rounded-lg p-6">
         <div className="flex items-center gap-2 text-amber-600 font-bold mb-6">
           <AlertTriangle size={20} /> Weaknesses
         </div>
@@ -606,7 +606,7 @@ const AssessmentPanel: React.FC<AssessmentPanelProps> = ({
                     placeholder="Nháº­p lÃ½ do khÃ¡c..."
                     className="flex-1 bg-white border border-amber-200 rounded-lg px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-amber-500/20"
                   />
-                  <button onClick={saveOther} className="bg-[#1fb2aa] text-white px-3 py-1 rounded-lg text-xs font-bold shadow-sm hover:bg-[#1a9b94] transition-all">LÆ°u</button>
+                  <button onClick={saveOther} className="bg-[#183a68] text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-[#0f2a4a] transition-all">Lưu</button>
                   <button onClick={() => { setOtherText(''); setIsAddingOther(false); }} className="bg-white border border-slate-200 text-slate-500 px-3 py-1 rounded-lg text-xs font-bold hover:bg-slate-50 transition-all">Huá»·</button>
                 </div>
               )}
@@ -616,8 +616,8 @@ const AssessmentPanel: React.FC<AssessmentPanelProps> = ({
       </div>
 
       {/* Band Reason */}
-      <div className="bg-blue-50/50 border border-blue-200 rounded-xl p-6 shadow-sm">
-        <div className="flex items-center gap-2 text-blue-600 font-bold mb-4">
+      <div className="bg-white border border-[#e2e8f0] rounded-lg p-6">
+        <div className="flex items-center gap-2 text-[#183a68] font-bold mb-4">
           <Star size={20} />
           Reason for Band{' '}
           {isEditMode ? (
@@ -723,7 +723,7 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = (props) => {
   return (
     <div className="space-y-12">
       {/* Sticky tabs */}
-      <div className="sticky top-[148px] z-20 bg-[#f8fafc] py-4 -mx-4 px-4 mb-4 shadow-sm border-b border-slate-100">
+      <div className="sticky top-[148px] z-20 bg-white py-4 -mx-4 px-4 mb-4 border-b border-[#e2e8f0]">
         <div className="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar">
           {CATEGORIES.map((cat) => (
             <button
@@ -733,10 +733,10 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = (props) => {
                 const id = CATEGORY_FULL_NAMES[cat].toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-');
                 document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
-              className={`flex-1 min-w-fit px-6 py-3 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${
+              className={`flex-1 min-w-fit px-6 py-2.5 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${
                 activeTab === cat
-                  ? 'bg-[#1fb2aa] text-white shadow-md'
-                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                  ? 'bg-[#183a68] text-white'
+                  : 'bg-white border border-[#e2e8f0] text-slate-600 hover:bg-[#eaf2fd]'
               }`}
             >
               {CATEGORY_FULL_NAMES[cat]}

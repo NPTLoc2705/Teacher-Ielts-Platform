@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import Dialog from '../ui/Dialog';
 import Button from '../ui/Button';
 import { X } from "lucide-react";
@@ -80,9 +80,9 @@ export function TeacherAiRatingModal({
   return (
     <Dialog open={isOpen} onClose={() => {}}>
       
-        <div className="bg-[#f3f4f6] px-6 py-4 flex items-center justify-between border-b">
-          <h3 className="text-base font-bold">
-            XÃ¡c nháº­n bÃ i cháº¥m
+        <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-[#e2e8f0]">
+          <h3 className="text-base font-bold text-[#0f172a]">
+            Xác nhận bài chấm
           </h3>
           <button
             onClick={onClose}
@@ -127,26 +127,26 @@ export function TeacherAiRatingModal({
           )}
         </div>
 
-        <div className="bg-[#f3f4f6] px-6 py-6 flex flex-wrap items-center justify-end gap-3 border-t">
+        <div className="bg-white px-6 py-4 flex flex-wrap items-center justify-end gap-3 border-t border-[#e2e8f0]">
           <Button
             variant="outline"
             onClick={onClose}
-            className="h-12 px-8 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-100 font-bold rounded-lg shadow-sm"
+            className="h-10 px-6 text-[#64748b] hover:text-[#183a68] hover:bg-[#eaf2fd] font-semibold rounded-lg border-[#e2e8f0]"
           >
-            Huá»·
+            Hủy
           </Button>
           <Button
             variant="outline"
             onClick={() => handleRatingSubmit(false)}
-            className="h-12 px-8 bg-transparent border-[#1fb2aa] text-[#1fb2aa] hover:bg-[#1fb2aa]/5 font-bold rounded-lg shadow-sm"
+            className="h-10 px-6 border-[#183a68] text-[#183a68] hover:bg-[#eaf2fd] font-semibold rounded-lg"
           >
-            Gá»­i
+            Gửi
           </Button>
           <Button
             onClick={() => handleRatingSubmit(true)}
-            className="h-12 px-8 bg-[#1fb2aa] hover:bg-[#18958f] text-white font-bold rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 active:scale-95"
+            className="h-10 px-6 bg-[#183a68] hover:bg-[#0f2a4a] text-white font-semibold rounded-lg transition-colors active:scale-[0.98]"
           >
-            Gá»­i & BÃ i káº¿ tiáº¿p
+            Gửi & Bài kế tiếp
           </Button>
         </div>
       
@@ -215,9 +215,9 @@ export function TeacherCompletionSection({
     <div className={`flex flex-col items-center py-16 mt-8 border-t border-gray-100 ${className}`}>
       <Button
         onClick={() => setIsRatingModalOpen(true)}
-        className="bg-[#1fb2aa] hover:bg-[#18958f] text-white px-16 py-8 text-xl font-extrabold rounded-xl shadow-[0_10px_20px_-5px_rgba(31,178,170,0.3)] hover:shadow-[0_15px_25px_-5px_rgba(31,178,170,0.4)] transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 active:scale-95"
+        className="bg-[#183a68] hover:bg-[#0f2a4a] text-white px-12 py-3 text-base font-bold rounded-lg transition-colors active:scale-[0.98]"
       >
-        HoÃ n thÃ nh
+        Hoàn thành
       </Button>
 
       <TeacherAiRatingModal

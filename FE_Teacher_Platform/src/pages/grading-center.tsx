@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import {
   Star, Trash2, ArrowDown, ArrowUp, ChevronLeft, ChevronRight,
@@ -254,8 +254,8 @@ export default function GradingCenter() {
   return (
     <TeacherShell contentClassName="min-w-0 overflow-auto p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-extrabold text-center text-[#0f172a] mb-8">
-          Trung tam cham bai
+        <h1 className="font-display text-3xl font-bold text-center text-[#0f172a] mb-8 tracking-tight">
+          Trung tâm chấm bài
         </h1>
 
         {/* Filter Bar */}
@@ -339,30 +339,30 @@ export default function GradingCenter() {
         </div>
 
         {/* Table */}
-        <div className="bg-white rounded-[20px] border border-gray-300 shadow-sm p-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">Bai viet moi tu hoc vien</h2>
+        <div className="bg-white rounded-lg border border-[#e2e8f0] p-6">
+          <h2 className="text-xl font-bold text-[#0f172a] mb-6">Bài viết mới từ học viên</h2>
           <div className="w-full overflow-x-auto">
             <table className="w-full table-fixed border-collapse">
               <thead>
-                <tr className="border-b border-gray-100">
+                <tr className="border-b border-[#e2e8f0]">
                   <th className="w-6 pb-3" />
-                  <th className="w-28 pb-3 text-left font-bold text-black text-[13px]">
+                  <th className="w-28 pb-3 text-left font-bold text-[#0f172a] text-[13px]">
                     <div className="flex items-center gap-1.5">
-                      Ngay viet
+                      Ngày viết
                       <button
                         onClick={() => setSortOrder(sortOrder === "newest" ? "oldest" : "newest")}
-                        className="text-gray-400 hover:text-[#1fb2aa] transition-colors"
+                        className="text-gray-400 hover:text-[#183a68] transition-colors"
                       >
                         {sortOrder === "newest" ? <ArrowDown className="h-3.5 w-3.5" /> : <ArrowUp className="h-3.5 w-3.5" />}
                       </button>
                     </div>
                   </th>
-                  <th className="w-36 pb-3 text-left font-bold text-black text-[13px]">Hoc vien</th>
-                  <th className="pb-3 text-left font-bold text-black text-[13px]">Topic</th>
-                  <th className="w-28 pb-3 text-center font-bold text-black text-[13px]">Hinh thuc</th>
-                  <th className="w-28 pb-3 text-center font-bold text-black text-[13px]">Diem cua ban</th>
-                  <th className="w-24 pb-3 text-center font-bold text-black text-[13px]">Diem AI</th>
-                  <th className="w-24 pb-3 text-right font-bold text-black text-[13px]">Thao tac</th>
+                  <th className="w-36 pb-3 text-left font-bold text-[#0f172a] text-[13px]">Học viên</th>
+                  <th className="pb-3 text-left font-bold text-[#0f172a] text-[13px]">Topic</th>
+                  <th className="w-28 pb-3 text-center font-bold text-[#0f172a] text-[13px]">Hình thức</th>
+                  <th className="w-28 pb-3 text-center font-bold text-[#0f172a] text-[13px]">Điểm của bạn</th>
+                  <th className="w-24 pb-3 text-center font-bold text-[#0f172a] text-[13px]">Điểm AI</th>
+                  <th className="w-24 pb-3 text-right font-bold text-[#0f172a] text-[13px]">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -520,14 +520,14 @@ export default function GradingCenter() {
           </p>
           <button
             onClick={() => handleSelectGradingMode("ai")}
-            className="w-full h-auto py-5 px-6 rounded-2xl bg-white border-2 border-orange-300 hover:border-orange-600 transition-all flex flex-col items-center text-center gap-1"
+            className="w-full h-auto py-5 px-6 rounded-lg bg-white border-2 border-orange-300 hover:border-orange-600 transition-all flex flex-col items-center text-center gap-1"
           >
             <span className="text-lg font-bold text-orange-600">Sua bai cham cua AI</span>
             <span className="text-xs text-gray-700 leading-relaxed">Ban se duoc xem bai cham tu AI va sua truc tiep.</span>
           </button>
           <button
             onClick={() => handleSelectGradingMode("self")}
-            className="w-full h-auto py-5 px-6 rounded-2xl bg-white border-2 border-emerald-400 hover:border-emerald-600 transition-all flex flex-col items-center text-center gap-1"
+            className="w-full h-auto py-5 px-6 rounded-lg bg-white border-2 border-emerald-400 hover:border-emerald-600 transition-all flex flex-col items-center text-center gap-1"
           >
             <span className="text-lg font-bold text-emerald-600">Tu cham</span>
             <span className="text-xs text-gray-700 leading-relaxed">Ban se tu cham ma khong xem ket qua tu AI.</span>

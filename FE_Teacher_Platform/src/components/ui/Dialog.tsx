@@ -55,7 +55,7 @@ export function Dialog({
     <DialogContext.Provider value={{ open, onClose: handleClose }}>
       {title ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) handleClose();
           }}
@@ -97,7 +97,7 @@ export function DialogContent({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}

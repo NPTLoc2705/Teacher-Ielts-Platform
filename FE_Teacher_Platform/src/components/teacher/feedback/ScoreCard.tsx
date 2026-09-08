@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { type CriterionScores, type FeedbackCategory } from './types';
 
 interface ScoreItemProps {
@@ -65,7 +65,7 @@ interface ScoreCardProps {
 
 const ScoreCard: React.FC<ScoreCardProps> = ({ scores, overallBand, onScoreUpdate, isEditable }) => {
   return (
-    <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm h-full">
+    <div className="bg-white border border-slate-200 p-6 rounded-lg h-full">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg font-bold text-slate-800">Score Breakdown</h2>
       </div>
@@ -87,7 +87,7 @@ const ScoreCard: React.FC<ScoreCardProps> = ({ scores, overallBand, onScoreUpdat
             IELTS Rounding Applied
           </span>
         </div>
-        <span className="text-4xl font-extrabold text-[#1fb2aa]">{overallBand.toFixed(1)}</span>
+        <span className="text-4xl font-bold text-[#183a68]">{overallBand.toFixed(1)}</span>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 interface Toast {
@@ -33,10 +33,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`flex items-start gap-3 rounded-xl p-4 shadow-lg border text-sm ${
-              t.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
-              t.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
-              'bg-blue-50 border-blue-200 text-blue-800'
+            className={`flex items-start gap-3 rounded-lg p-4 border text-sm ${
+              t.type === 'success' ? 'bg-[#e3faf7] border-[#a7f0e6] text-[#0d746f]' :
+              t.type === 'error' ? 'bg-red-50 border-red-200 text-red-700' :
+              'bg-[#eaf2fd] border-[#c6dcfa] text-[#183a68]'
             }`}
           >
             {t.type === 'success' ? <CheckCircle className="h-4 w-4 mt-0.5 shrink-0" /> :

@@ -43,7 +43,7 @@ function InfoTooltip({ text }: { text: string }) {
             </button>
             {show && createPortal(
                 <div
-                    className="fixed z-[9999] max-w-[280px] text-xs text-white bg-gray-800 rounded-xl px-3 py-2.5 leading-relaxed pointer-events-none shadow-xl"
+                    className="fixed z-[9999] max-w-[280px] text-xs text-white bg-[#0f172a] rounded-lg px-3 py-2.5 leading-relaxed pointer-events-none border border-slate-700"
                     style={{ top: pos.top, left: pos.left, transform: 'translate(-50%, -100%)' }}
                 >
                     {text}
@@ -199,7 +199,7 @@ export default function CreateTaskModal({ open, onOpenChange }: CreateTaskModalP
 
     return (
         <Dialog open={open} onOpenChange={v => { if (!v) handleClose(); }}>
-            <DialogContent className="sm:max-w-[580px] p-0 rounded-2xl border-none overflow-hidden flex flex-col" style={{ maxHeight: '90vh' }}>
+            <DialogContent className="sm:max-w-[580px] p-0 rounded-xl border border-[#e2e8f0] overflow-hidden flex flex-col" style={{ maxHeight: '90vh' }}>
                 <div className="px-8 pt-4 pb-3 border-b border-gray-100 shrink-0">
                     <h2 className="text-xl font-bold text-gray-900 text-center">Nội dung bài tập</h2>
                 </div>
@@ -214,15 +214,15 @@ export default function CreateTaskModal({ open, onOpenChange }: CreateTaskModalP
                                 <button
                                     type="button"
                                     onClick={() => { setTaskLoaiBaiDropdownOpen(v => !v); setTaskHinhThucDropdownOpen(false); setTaskThoiGianDropdownOpen(false); setTaskClassDropdownOpen(false); }}
-                                    className="w-full h-10 px-3 border border-gray-200 rounded-lg text-sm text-gray-700 bg-white hover:border-[#1fb2aa] focus:outline-none focus:ring-1 focus:ring-[#1fb2aa] flex items-center justify-between"
+                                    className="w-full h-10 px-3 border border-[#e2e8f0] rounded-lg text-sm text-[#0f172a] bg-white hover:border-[#183a68] focus:outline-none focus:ring-1 focus:ring-[#183a68] flex items-center justify-between"
                                 >
-                                    {taskLoaiBai} <ChevronDown className="h-3.5 w-3.5 text-gray-400" />
+                                    {taskLoaiBai} <ChevronDown className="h-3.5 w-3.5 text-[#64748b]" />
                                 </button>
                                 {taskLoaiBaiDropdownOpen && (
-                                    <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden">
+                                    <div className="absolute top-full left-0 w-full mt-1 bg-white border border-[#e2e8f0] rounded-lg z-50 overflow-hidden">
                                         {(['Task 1', 'Task 2', 'Full Exam'] as const).map(opt => (
                                             <div key={opt} onMouseDown={e => { e.preventDefault(); setTaskLoaiBai(opt); setTaskLoaiBaiDropdownOpen(false); }}
-                                                className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${taskLoaiBai === opt ? 'bg-[#f0fdfa] text-[#1fb2aa] font-bold' : 'text-gray-700 hover:bg-gray-50'}`}>
+                                                className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${taskLoaiBai === opt ? 'bg-[#eaf2fd] text-[#183a68] font-bold' : 'text-[#0f172a] hover:bg-gray-50'}`}>
                                                 {opt}
                                             </div>
                                         ))}
@@ -237,15 +237,15 @@ export default function CreateTaskModal({ open, onOpenChange }: CreateTaskModalP
                                 <button
                                     type="button"
                                     onClick={() => { setTaskHinhThucDropdownOpen(v => !v); setTaskLoaiBaiDropdownOpen(false); setTaskThoiGianDropdownOpen(false); setTaskClassDropdownOpen(false); }}
-                                    className="w-full h-10 px-3 border border-gray-200 rounded-lg text-sm text-gray-700 bg-white hover:border-[#1fb2aa] focus:outline-none focus:ring-1 focus:ring-[#1fb2aa] flex items-center justify-between"
+                                    className="w-full h-10 px-3 border border-[#e2e8f0] rounded-lg text-sm text-[#0f172a] bg-white hover:border-[#183a68] focus:outline-none focus:ring-1 focus:ring-[#183a68] flex items-center justify-between"
                                 >
-                                    {taskHinhThuc} <ChevronDown className="h-3.5 w-3.5 text-gray-400" />
+                                    {taskHinhThuc} <ChevronDown className="h-3.5 w-3.5 text-[#64748b]" />
                                 </button>
                                 {taskHinhThucDropdownOpen && (
-                                    <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden">
+                                    <div className="absolute top-full left-0 w-full mt-1 bg-white border border-[#e2e8f0] rounded-lg z-50 overflow-hidden">
                                         {(['Bài tập', 'Bài thi'] as const).map(opt => (
                                             <div key={opt} onMouseDown={e => { e.preventDefault(); setTaskHinhThuc(opt); setTaskHinhThucDropdownOpen(false); }}
-                                                className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${taskHinhThuc === opt ? 'bg-[#f0fdfa] text-[#1fb2aa] font-bold' : 'text-gray-700 hover:bg-gray-50'}`}>
+                                                className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${taskHinhThuc === opt ? 'bg-[#eaf2fd] text-[#183a68] font-bold' : 'text-[#0f172a] hover:bg-gray-50'}`}>
                                                 {opt}
                                             </div>
                                         ))}
@@ -265,12 +265,12 @@ export default function CreateTaskModal({ open, onOpenChange }: CreateTaskModalP
                                 <button
                                     type="button"
                                     onClick={() => { setTaskClassDropdownOpen(v => !v); setTaskLoaiBaiDropdownOpen(false); setTaskHinhThucDropdownOpen(false); setTaskThoiGianDropdownOpen(false); }}
-                                    className="h-10 px-4 border border-gray-200 rounded-lg text-sm text-gray-500 bg-white hover:border-[#1fb2aa] focus:outline-none focus:ring-1 focus:ring-[#1fb2aa] flex items-center gap-2"
+                                    className="h-10 px-4 border border-[#e2e8f0] rounded-lg text-sm text-[#0f172a] bg-white hover:border-[#183a68] focus:outline-none focus:ring-1 focus:ring-[#183a68] flex items-center gap-2"
                                 >
-                                    Danh sách lớp <ChevronDown className="h-3.5 w-3.5" />
+                                    Danh sách lớp <ChevronDown className="h-3.5 w-3.5 text-[#64748b]" />
                                 </button>
                                 {taskClassDropdownOpen && (
-                                    <div className="absolute top-full left-0 mt-1 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden min-w-[170px]">
+                                    <div className="absolute top-full left-0 mt-1 bg-white border border-[#e2e8f0] rounded-lg z-50 overflow-hidden min-w-[170px]">
                                         {classOptions.map(cls => {
                                             const isAllSelected = cls === 'Tất cả' && taskSelectedClasses.length === classOptionsReal.length;
                                             const isSelected = cls !== 'Tất cả' ? taskSelectedClasses.includes(cls) : isAllSelected;
@@ -278,7 +278,7 @@ export default function CreateTaskModal({ open, onOpenChange }: CreateTaskModalP
                                                 <div
                                                     key={cls}
                                                     onMouseDown={e => { e.preventDefault(); toggleClass(cls); }}
-                                                    className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${isSelected ? 'bg-[#f0fdfa] text-[#1fb2aa] font-bold' : 'text-gray-700 hover:bg-gray-50'}`}
+                                                    className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${isSelected ? 'bg-[#eaf2fd] text-[#183a68] font-bold' : 'text-[#0f172a] hover:bg-gray-50'}`}
                                                 >
                                                     {cls}
                                                 </div>
@@ -544,15 +544,15 @@ export default function CreateTaskModal({ open, onOpenChange }: CreateTaskModalP
                             <button
                                 type="button"
                                 onClick={() => { setTaskThoiGianDropdownOpen(v => !v); setTaskLoaiBaiDropdownOpen(false); setTaskHinhThucDropdownOpen(false); setTaskClassDropdownOpen(false); }}
-                                className="h-10 px-4 border border-gray-200 rounded-lg text-sm text-gray-700 bg-white hover:border-[#1fb2aa] focus:outline-none focus:ring-1 focus:ring-[#1fb2aa] flex items-center gap-3 min-w-[160px]"
+                                className="h-10 px-4 border border-[#e2e8f0] rounded-lg text-sm text-[#0f172a] bg-white hover:border-[#183a68] focus:outline-none focus:ring-1 focus:ring-[#183a68] flex items-center gap-3 min-w-[160px]"
                             >
-                                {taskThoiGian} <ChevronDown className="h-3.5 w-3.5 text-gray-400 ml-auto" />
+                                {taskThoiGian} <ChevronDown className="h-3.5 w-3.5 text-[#64748b] ml-auto" />
                             </button>
                             {taskThoiGianDropdownOpen && (
-                                <div className="absolute top-full left-0 mt-1 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden min-w-[160px]">
+                                <div className="absolute top-full left-0 mt-1 bg-white border border-[#e2e8f0] rounded-lg z-50 overflow-hidden min-w-[160px]">
                                     {thoiGianOptions.map(opt => (
                                         <div key={opt} onMouseDown={e => { e.preventDefault(); setTaskThoiGian(opt); setTaskThoiGianDropdownOpen(false); }}
-                                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${taskThoiGian === opt ? 'bg-[#f0fdfa] text-[#1fb2aa] font-bold' : 'text-gray-700 hover:bg-gray-50'}`}>
+                                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${taskThoiGian === opt ? 'bg-[#eaf2fd] text-[#183a68] font-bold' : 'text-[#0f172a] hover:bg-gray-50'}`}>
                                             {opt}
                                         </div>
                                     ))}

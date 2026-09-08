@@ -62,16 +62,21 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f1f3fc] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#f1f3fc] flex flex-col justify-center items-center p-4 sm:p-6 relative selection:bg-[#183a68] selection:text-white">
+      {/* Subtle top decoration badge */}
+      
+
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl border border-[#e2e8f0] overflow-hidden shadow-sm">
-          {/* Header - Wispace Deep Navy */}
-          <div className="bg-[#183a68] px-8 py-8 text-center border-b border-[#0f2a4a]">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-white/10 rounded-lg mb-3">
-              <GraduationCap className="h-7 w-7 text-white" />
-            </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Wispace Teacher</h1>
-            <p className="text-[#eaf2fd] text-xs mt-1 font-medium">Đăng ký tài khoản Giảng viên / Giáo viên</p>
+        <div className="bg-white rounded-xl border border-[#e2e8f0] overflow-hidden">
+          {/* Header */}
+          <div className="px-8 pt-8 pb-6 text-center border-b border-[#f1f3fc]">
+            <img
+              src="/logo w-04.png"
+              alt="Wispace Logo"
+              className="h-14 w-auto object-contain mx-auto mb-3.5"
+            />
+            <h1 className="text-2xl font-bold text-[#183a68] tracking-tight">Wispace Teacher</h1>
+            <p className="text-xs text-[#64748b] mt-1.5 font-medium">Tạo tài khoản Giảng viên / Giáo viên chấm thi</p>
           </div>
 
           {/* Form */}

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useParams, useLocation } from 'wouter';
 import { X } from 'lucide-react';
 import FeedbackNavBar from '../components/teacher/feedback/FeedbackNavBar';
@@ -74,16 +74,16 @@ const TeacherFeedbackPage: React.FC = () => {
 
     return (
       <div className="max-w-7xl mx-auto px-4 pt-8">
-        <div className="grid w-full grid-cols-2 bg-white border border-gray-200 rounded-lg p-1 shadow-sm">
+        <div className="grid w-full grid-cols-2 bg-white border border-[#e2e8f0] rounded-lg p-1 shadow-none">
           <button
             onClick={() => setActiveVirtualTask('task1')}
-            className={`py-3 rounded-md font-semibold transition-colors ${activeVirtualTask === 'task1' ? 'bg-[#1fb2aae6] text-white' : 'bg-transparent text-gray-700 hover:bg-gray-100'}`}
+            className={`py-3 rounded-md font-semibold transition-colors ${activeVirtualTask === 'task1' ? 'bg-[#183a68] text-white shadow-none' : 'bg-transparent text-gray-700 hover:bg-gray-100'}`}
           >
             Task 1
           </button>
           <button
             onClick={() => setActiveVirtualTask('task2')}
-            className={`py-3 rounded-md font-semibold transition-colors ${activeVirtualTask === 'task2' ? 'bg-[#1fb2aae6] text-white' : 'bg-transparent text-gray-700 hover:bg-gray-100'}`}
+            className={`py-3 rounded-md font-semibold transition-colors ${activeVirtualTask === 'task2' ? 'bg-[#183a68] text-white shadow-none' : 'bg-transparent text-gray-700 hover:bg-gray-100'}`}
           >
             Task 2
           </button>
@@ -93,21 +93,21 @@ const TeacherFeedbackPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pb-32">
+    <div className="min-h-screen bg-[#f1f3fc] pb-32">
       <FeedbackNavBar onBack={handleBack} backLabel="Trá»Ÿ láº¡i" />
       {renderTaskSwitcher()}
 
       {/* Sticky student info bar */}
-      <div className="sticky top-[72px] z-30 mb-8 -mx-4 px-4 py-2 bg-[#f8fafc]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-sm border border-[#1fb2aa]/20 p-4 flex flex-wrap items-center justify-between gap-4">
+      <div className="sticky top-[72px] z-30 mb-8 -mx-4 px-4 py-2 bg-[#f1f3fc] border-b border-[#e2e8f0]">
+        <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-none border border-[#e2e8f0] p-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-2">
-              <span className="text-slate-500 font-medium text-sm">TÃªn há»c viÃªn:</span>
-              <span className="text-[#004d4d] font-bold text-sm">{data.studentName}</span>
+              <span className="text-slate-500 font-medium text-sm">Tên học viên:</span>
+              <span className="text-[#183a68] font-bold text-sm">{data.studentName}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-500 font-medium text-sm">Lá»›p:</span>
-              <span className="text-[#004d4d] font-bold text-sm">{data.className}</span>
+              <span className="text-slate-500 font-medium text-sm">Lớp:</span>
+              <span className="text-[#183a68] font-bold text-sm">{data.className}</span>
             </div>
           </div>
           <div className="flex items-center gap-8">
@@ -124,34 +124,34 @@ const TeacherFeedbackPage: React.FC = () => {
       </div>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
+        <div className="bg-white rounded-lg shadow-none border border-[#e2e8f0] p-6 md:p-10">
           {isVirtualExamMode && virtualExamSummary ? (
-            <div className="border border-slate-200 rounded-2xl p-6 md:p-8 mb-10 bg-slate-50/80">
-              <h1 className="text-2xl md:text-3xl font-bold text-center mb-8 text-slate-800 leading-tight">
+            <div className="border border-[#e2e8f0] rounded-lg p-6 md:p-8 mb-10 bg-[#f8fafc]">
+              <h1 className="font-display text-2xl md:text-3xl font-bold text-center mb-8 text-[#0f172a] tracking-tight">
                 Virtual Exam Review
               </h1>
               <div className="flex flex-col items-center gap-6">
-                <div className="text-5xl md:text-6xl font-bold text-[#3bbdc0] leading-none">
+                <div className="text-5xl md:text-6xl font-bold text-[#183a68] leading-none">
                   {virtualExamSummary.overallScore}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl">
-                  <div className="rounded-xl border border-slate-200 bg-white p-4 text-center shadow-sm">
+                  <div className="rounded-lg border border-[#e2e8f0] bg-white p-4 text-center shadow-none">
                     <div className="text-sm font-semibold text-slate-600">Task 1</div>
-                    <div className="text-2xl font-bold text-[#3bbdc0] mt-1">{virtualExamSummary.task1Score}</div>
+                    <div className="text-2xl font-bold text-[#1fb2aa] mt-1">{virtualExamSummary.task1Score}</div>
                   </div>
-                  <div className="rounded-xl border border-slate-200 bg-white p-4 text-center shadow-sm">
+                  <div className="rounded-lg border border-[#e2e8f0] bg-white p-4 text-center shadow-none">
                     <div className="text-sm font-semibold text-slate-600">Task 2</div>
-                    <div className="text-2xl font-bold text-[#3bbdc0] mt-1">{virtualExamSummary.task2Score}</div>
+                    <div className="text-2xl font-bold text-[#1fb2aa] mt-1">{virtualExamSummary.task2Score}</div>
                   </div>
-                  <div className="rounded-xl border border-slate-200 bg-white p-4 text-center shadow-sm">
+                  <div className="rounded-lg border border-[#e2e8f0] bg-white p-4 text-center shadow-none">
                     <div className="text-sm font-semibold text-slate-600">Total Time</div>
-                    <div className="text-2xl font-bold text-[#3bbdc0] mt-1">{virtualExamSummary.completionTimeMinutes}</div>
+                    <div className="text-2xl font-bold text-[#1fb2aa] mt-1">{virtualExamSummary.completionTimeMinutes}</div>
                   </div>
                 </div>
               </div>
             </div>
           ) : (
-            <h1 className="text-2xl md:text-3xl font-bold text-center mb-10 text-slate-800 leading-tight">
+            <h1 className="font-display text-2xl md:text-3xl font-bold text-center mb-10 text-[#0f172a] tracking-tight">
               Your essay has been evaluated based on the IELTS {data.taskType === 'task1' ? 'Task 1' : 'Task 2'} criteria!
             </h1>
           )}
@@ -198,7 +198,7 @@ const TeacherFeedbackPage: React.FC = () => {
           {/* Font size controls */}
           <div className="mb-6 flex items-center justify-start gap-3 p-1">
             <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">
-              Äiá»u chá»‰nh cá»¡ chá»¯:
+              Điều chỉnh cỡ chữ:
             </span>
             <div className="flex gap-2">
               <button
@@ -206,8 +206,8 @@ const TeacherFeedbackPage: React.FC = () => {
                 disabled={hook.fontSizeLevel <= -2}
                 className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold transition-all border ${
                   hook.fontSizeLevel <= -2
-                    ? 'bg-slate-50 border-slate-200 text-slate-300 cursor-not-allowed'
-                    : 'bg-white border-slate-200 text-slate-600 hover:border-[#1fb2aa] hover:text-[#1fb2aa] shadow-sm active:scale-95'
+                    ? 'bg-slate-50 border-[#e2e8f0] text-slate-300 cursor-not-allowed'
+                    : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-[#183a68] hover:text-[#183a68] shadow-none'
                 }`}
               >
                 A-
@@ -217,8 +217,8 @@ const TeacherFeedbackPage: React.FC = () => {
                 disabled={hook.fontSizeLevel >= 2}
                 className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold transition-all border ${
                   hook.fontSizeLevel >= 2
-                    ? 'bg-slate-50 border-slate-200 text-slate-300 cursor-not-allowed'
-                    : 'bg-white border-slate-200 text-slate-600 hover:border-[#1fb2aa] hover:text-[#1fb2aa] shadow-sm active:scale-95'
+                    ? 'bg-slate-50 border-[#e2e8f0] text-slate-300 cursor-not-allowed'
+                    : 'bg-white border-[#e2e8f0] text-slate-600 hover:border-[#183a68] hover:text-[#183a68] shadow-none'
                 }`}
               >
                 A+
@@ -316,35 +316,29 @@ const TeacherFeedbackPage: React.FC = () => {
                   teacherConfidenceRating: 0,
                 })
               }
-              className="px-16 py-4 rounded-xl bg-[#1fb2aa] text-white hover:bg-[#1a9b94] font-bold text-xl shadow-lg hover:shadow-xl transform active:scale-95 transition-all"
+              className="px-16 py-3.5 rounded-lg bg-[#183a68] text-white hover:bg-[#122c50] font-bold text-lg shadow-none transition-all"
             >
-              HoÃ n thÃ nh
+              Hoàn thành
             </button>
-            {/* <button
-              onClick={() => hook.openConfirmationModal('next')}
-              className="px-8 py-4 rounded-xl border-2 border-[#1fb2aa] text-[#1fb2aa] hover:bg-teal-50 font-bold text-lg transition-all"
-            >
-              Gá»­i &amp; BÃ i káº¿ tiáº¿p
-            </button> */}
           </div>
         </div>
       </main>
 
       {/* Sticky bottom control bar */}
-      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] flex items-center bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl rounded-full px-5 py-2.5 hover:shadow-2xl transition-shadow duration-300 group">
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex items-center bg-white border border-[#e2e8f0] shadow-none rounded-lg px-5 py-2.5 group">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
             <div
               className={`w-2.5 h-2.5 rounded-full ${
                 hook.isEditMode
-                  ? 'bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.5)]'
-                  : 'bg-[#1fb2aa] shadow-[0_0_8px_rgba(31,178,170,0.5)]'
+                  ? 'bg-amber-500'
+                  : 'bg-[#183a68]'
               }`}
             />
             <span className="text-sm font-medium text-slate-600 whitespace-nowrap">
-              Báº¡n Ä‘ang á»Ÿ cháº¿ Ä‘á»™{' '}
-              <span className={hook.isEditMode ? 'text-amber-600 font-bold' : 'text-[#1fb2aa] font-bold'}>
-                {hook.isEditMode ? 'chá»‰nh sá»­a' : 'xem'}
+              Bạn đang ở chế độ{' '}
+              <span className={hook.isEditMode ? 'text-amber-600 font-bold' : 'text-[#183a68] font-bold'}>
+                {hook.isEditMode ? 'chỉnh sửa' : 'xem'}
               </span>
             </span>
           </div>
@@ -353,16 +347,16 @@ const TeacherFeedbackPage: React.FC = () => {
             {!hook.isEditMode ? (
               <button
                 onClick={() => hook.setIsEditMode(true)}
-                className="px-5 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold text-xs transition-all active:scale-95 whitespace-nowrap shadow-sm"
+                className="px-4 py-1.5 rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold text-xs transition-all whitespace-nowrap shadow-none"
               >
-                Sá»­a
+                Sửa
               </button>
             ) : (
               <button
                 onClick={() => hook.setIsEditMode(false)}
-                className="px-5 py-1.5 rounded-full bg-[#1fb2aa] text-white hover:bg-[#1a9b94] font-bold text-xs shadow-md transition-all active:scale-95 whitespace-nowrap"
+                className="px-4 py-1.5 rounded-md bg-[#183a68] text-white hover:bg-[#122c50] font-bold text-xs shadow-none transition-all whitespace-nowrap"
               >
-                LÆ°u
+                Lưu
               </button>
             )}
           </div>
@@ -386,8 +380,8 @@ const TeacherFeedbackPage: React.FC = () => {
 
       {/* Toast */}
       {hook.toast.visible && (
-        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[150] bg-slate-800 text-white px-6 py-3 rounded-xl shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300 flex items-center gap-3 border border-slate-700/50 backdrop-blur-sm pointer-events-auto">
-          <div className="w-2 h-2 rounded-full bg-[#1fb2aa] shadow-[0_0_8px_rgba(31,178,170,1)]" />
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[150] bg-slate-900 text-white px-6 py-3 rounded-lg shadow-none flex items-center gap-3 border border-slate-700 pointer-events-auto">
+          <div className="w-2 h-2 rounded-full bg-[#1fb2aa]" />
           <p className="text-sm font-medium">{hook.toast.message}</p>
           <button
             onClick={() =>

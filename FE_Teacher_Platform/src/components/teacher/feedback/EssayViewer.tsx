@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import { type FeedbackItem, type FeedbackCategory } from './types';
 
@@ -215,7 +215,7 @@ const EssayViewer: React.FC<EssayViewerProps> = ({
 
       const borderClass = CATEGORY_BORDER[representItem?.category ?? 'TR'];
       const selectedClass = isSelected
-        ? 'ring-2 ring-[#1fb2aa]/50 z-10 scale-[1.01] shadow-sm'
+        ? 'ring-2 ring-[#1fb2aa]/50 z-10 scale-[1.01]'
         : '';
 
       elements.push(
@@ -235,11 +235,11 @@ const EssayViewer: React.FC<EssayViewerProps> = ({
   };
 
   return (
-    <div className="bg-white border border-slate-200 p-8 rounded-xl shadow-sm relative h-full flex flex-col">
+    <div className="bg-white border border-slate-200 p-8 rounded-lg relative h-full flex flex-col">
       <h2 className="font-bold mb-4 text-slate-800">Your Essay</h2>
       <div
         onMouseUp={handleMouseUp}
-        className="flex-1 rounded-xl p-6 bg-slate-50 min-h-[600px] leading-relaxed border border-slate-100 whitespace-pre-wrap select-text transition-all duration-300"
+        className="flex-1 rounded-lg p-6 bg-slate-50 min-h-[600px] leading-relaxed border border-slate-100 whitespace-pre-wrap select-text transition-all duration-300"
       >
         {isEditMode && (
           <p className="text-xs text-slate-500 mb-6 italic select-none">
@@ -259,7 +259,7 @@ const EssayViewer: React.FC<EssayViewerProps> = ({
         <div
           ref={menuRef}
           style={{ top: contextMenu.y - 10, left: contextMenu.x }}
-          className="fixed z-[100] bg-white border border-slate-200 rounded-lg shadow-xl py-1 w-32 overflow-hidden transform -translate-x-1/2 -translate-y-full animate-in fade-in zoom-in duration-200"
+          className="fixed z-[100] bg-white border border-slate-200 rounded-lg py-1 w-32 overflow-hidden transform -translate-x-1/2 -translate-y-full"
         >
           <button
             onClick={() => { onEdit(contextMenu.id); setContextMenu(null); }}

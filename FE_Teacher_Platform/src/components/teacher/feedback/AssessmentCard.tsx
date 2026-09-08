@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Info, ChevronDown } from 'lucide-react';
 import { type OverallAssessment } from './types';
 
@@ -98,7 +98,7 @@ const AssessmentCard: React.FC<AssessmentCardProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
+      <div className="bg-white border border-slate-200 p-6 rounded-lg">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold text-slate-800">Overall Assessment:</h2>
           <span className="text-slate-400 text-xs flex items-center gap-1 italic">
@@ -129,7 +129,7 @@ const AssessmentCard: React.FC<AssessmentCardProps> = ({
         </div>
       </div>
 
-      <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
+      <div className="bg-white border border-slate-200 p-6 rounded-lg">
         <h2 className="text-lg font-bold text-center mb-6 text-slate-800">Writing Statistic</h2>
         <div className="flex justify-around items-center">
           <div className="text-center">

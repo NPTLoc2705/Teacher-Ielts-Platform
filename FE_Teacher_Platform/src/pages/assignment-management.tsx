@@ -222,12 +222,12 @@ function FilterDropdown({ label, options, value, onChange }: {
                 <ChevronDown className="h-3.5 w-3.5 text-[#64748B]" />
             </button>
             {open && (
-                <div className="absolute top-full left-0 mt-1 bg-white border border-[#E2E8F0] rounded-xl shadow-lg z-50 overflow-hidden min-w-[150px]">
+                <div className="absolute top-full left-0 mt-1 bg-white border border-[#E2E8F0] rounded-lg shadow-none z-50 overflow-hidden min-w-[150px]">
                     {options.map(opt => (
                         <div
                             key={opt}
                             onMouseDown={e => { e.preventDefault(); onChange(opt); setOpen(false); }}
-                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${value === opt ? 'bg-[#F1F5F9] text-[#183A68] font-bold' : 'text-[#64748B] hover:bg-[#F8F9FA]'}`}
+                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${value === opt ? 'bg-[#F1F5F9] text-[#183A68] font-bold' : 'text-[#64748B] hover:bg-[#f8fafc]'}`}
                         >
                             {opt}
                         </div>
@@ -299,13 +299,13 @@ export default function AssignmentManagement() {
 
     return (
         <TeacherShell contentClassName="min-w-0 overflow-auto p-8">
-            <div className="min-h-screen bg-[#F8F9FA] px-8 py-8 w-full">
+            <div className="min-h-screen bg-[#f1f3fc] px-8 py-8 w-full">
                 <CreateTaskModal open={isCreateOpen} onOpenChange={setIsCreateOpen} />
 
-                <h1 className="text-2xl font-bold mb-5" style={{ color: PRIMARY }}>Quản lý bài tập</h1>
+                <h1 className="font-display text-3xl font-bold mb-5 tracking-tight text-[#183a68]">Quản lý bài tập</h1>
 
                 {/* Search + Create button */}
-                <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm px-6 py-5 mb-5">
+                <div className="bg-white rounded-lg border border-[#E2E8F0] shadow-none px-6 py-5 mb-5">
                     <div className="flex items-center gap-4 mb-4">
                         <div className="relative flex-1">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748B]" />
@@ -313,12 +313,12 @@ export default function AssignmentManagement() {
                                 placeholder="Tìm kiếm bài tập theo nội dung"
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
-                                className="pl-11 h-11 bg-white border border-[#E2E8F0] rounded-xl text-sm text-[#183A68] placeholder:text-[#64748B] focus-visible:ring-1 focus-visible:ring-[#183A68]"
+                                className="pl-11 h-11 bg-white border border-[#E2E8F0] rounded-lg text-sm text-[#183A68] placeholder:text-[#64748B] focus-visible:ring-1 focus-visible:ring-[#183A68]"
                             />
                         </div>
                         <button
                             onClick={() => setIsCreateOpen(true)}
-                            className="flex items-center gap-2 h-11 px-6 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90 shrink-0"
+                            className="flex items-center gap-2 h-11 px-6 rounded-lg text-sm font-bold text-white transition-all hover:opacity-90 shrink-0 shadow-none"
                             style={{ backgroundColor: PRIMARY }}
                         >
                             <Plus className="h-4 w-4" />
@@ -338,10 +338,10 @@ export default function AssignmentManagement() {
                                 <ChevronDown className="h-3.5 w-3.5 text-[#64748B]" />
                             </button>
                             {timeOpen && (
-                                <div className="absolute top-full left-0 mt-1 bg-white border border-[#E2E8F0] rounded-xl shadow-lg z-50 overflow-hidden min-w-[150px]">
+                                <div className="absolute top-full left-0 mt-1 bg-white border border-[#E2E8F0] rounded-lg shadow-none z-50 overflow-hidden min-w-[150px]">
                                     {["7 ngày qua", "30 ngày qua", "60 ngày qua", "90 ngày qua"].map(opt => (
                                         <div key={opt} onMouseDown={e => { e.preventDefault(); setTimeFilter(opt); setTimeOpen(false); }}
-                                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${timeFilter === opt ? 'bg-[#F1F5F9] text-[#183A68] font-bold' : 'text-[#64748B] hover:bg-[#F8F9FA]'}`}>
+                                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${timeFilter === opt ? 'bg-[#F1F5F9] text-[#183A68] font-bold' : 'text-[#64748B] hover:bg-[#f8fafc]'}`}>
                                             {opt}
                                         </div>
                                     ))}
@@ -359,10 +359,10 @@ export default function AssignmentManagement() {
                                 <ChevronDown className="h-3.5 w-3.5" />
                             </button>
                             {sortOpen && (
-                                <div className="absolute top-full left-0 mt-1 bg-white border border-[#E2E8F0] rounded-xl shadow-lg z-50 overflow-hidden min-w-[120px]">
+                                <div className="absolute top-full left-0 mt-1 bg-white border border-[#E2E8F0] rounded-lg shadow-none z-50 overflow-hidden min-w-[120px]">
                                     {["Mới nhất", "Cũ nhất"].map(opt => (
                                         <div key={opt} onMouseDown={e => { e.preventDefault(); setSort(opt); setSortOpen(false); }}
-                                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${sort === opt ? 'bg-[#F1F5F9] text-[#183A68] font-bold' : 'text-[#64748B] hover:bg-[#F8F9FA]'}`}>
+                                            className={`px-4 py-2.5 text-sm cursor-pointer transition-colors ${sort === opt ? 'bg-[#F1F5F9] text-[#183A68] font-bold' : 'text-[#64748B] hover:bg-[#f8fafc]'}`}>
                                             {opt}
                                         </div>
                                     ))}
@@ -400,7 +400,7 @@ export default function AssignmentManagement() {
                 </div>
 
                 {/* Table */}
-                <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden mb-5">
+                <div className="bg-white rounded-lg border border-[#E2E8F0] shadow-none overflow-hidden mb-5">
                     <table className="w-full text-left">
                         <thead>
                             <tr className="border-b border-[#E2E8F0]">
@@ -417,7 +417,7 @@ export default function AssignmentManagement() {
                             {filtered.map((a, i) => (
                                 <tr
                                     key={a.id}
-                                    className="border-b border-[#E2E8F0] last:border-0 hover:bg-[#F8F9FA] transition-colors cursor-pointer"
+                                    className="border-b border-[#E2E8F0] last:border-0 hover:bg-[#f8fafc] transition-colors cursor-pointer"
                                     onClick={() => {
                                         const isRandom = a.subtitle.includes("Đề ngẫu nhiên");
                                         const typeParam = isRandom ? "random" : "custom";

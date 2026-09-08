@@ -56,7 +56,7 @@ export function DropdownMenuContent({
 
   return (
     <div
-      className={`absolute z-50 bg-white border border-gray-100 rounded-xl shadow-lg py-1 min-w-[160px] ${
+      className={`absolute z-50 bg-white border border-[#e2e8f0] rounded-lg py-1 min-w-[160px] ${
         align === 'end' ? 'right-0' : 'left-0'
       } top-full mt-1 ${className}`}
     >

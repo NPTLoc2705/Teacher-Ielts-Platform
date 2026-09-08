@@ -90,16 +90,16 @@ const ChartCard = ({ title, tabs, activeMainTab, setActiveMainTab, headerExtra, 
     setActiveMainTab: (t: string) => void; headerExtra?: React.ReactNode;
     labels: string[]; data: (number | null)[]; loading: boolean;
 }) => (
-    <Card className="rounded-2xl border-gray-300 shadow-sm overflow-hidden h-full">
+    <Card className="rounded-lg border border-[#e2e8f0] shadow-none overflow-hidden h-full">
         <CardContent className="p-6">
             <div className="flex items-center justify-between mb-8">
-                <h2 className="font-bold text-gray-900">{title}</h2>
+                <h2 className="font-bold text-[#0f172a]">{title}</h2>
                 {headerExtra}
             </div>
-            <div className="bg-gray-100 border border-gray-700 rounded-lg p-0.5 flex mb-6 h-9 items-center">
+            <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-lg p-0.5 flex mb-6 h-9 items-center">
                 {tabs.map((tab) => (
                     <button key={tab} onClick={() => setActiveMainTab(tab)}
-                        className={`flex-1 text-xs leading-none h-7 font-bold rounded-md transition-all ${tab === activeMainTab ? 'bg-[#1fb2aa] text-white shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}>
+                        className={`flex-1 text-xs leading-none h-7 font-bold rounded-md transition-all ${tab === activeMainTab ? 'bg-[#183a68] text-white shadow-none' : 'text-gray-500 hover:text-[#0f172a]'}`}>
                         {tab}
                     </button>
                 ))}
@@ -437,25 +437,25 @@ export default function ClassProgress() {
             <CreateTaskModal open={isCreateOpen} onOpenChange={setIsCreateTaskOpen} />
             {/* Add Student Dialog */}
             <Dialog open={isModalOpen} onOpenChange={(open) => { if (!open) closeModal(); }}>
-                <DialogContent className="sm:max-w-[500px] p-8 rounded-2xl border-none">
+                <DialogContent className="sm:max-w-[500px] p-8 rounded-xl border border-[#e2e8f0] shadow-none">
                     <DialogHeader className="mb-6">
-                        <DialogTitle className="text-2xl font-bold text-gray-900">Thêm học viên</DialogTitle>
+                        <DialogTitle className="text-2xl font-bold text-[#0f172a]">Thêm học viên</DialogTitle>
                     </DialogHeader>
 
                     <div className="space-y-4">
                         {/* Search input */}
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-900">Nhập email học viên</label>
+                            <label className="text-sm font-bold text-[#0f172a]">Nhập email học viên</label>
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                                 <Input
                                     placeholder="Nhập đầy đủ địa chỉ email học viên..."
-                                    className="h-12 bg-white border border-gray-200 rounded-xl pl-10 pr-4 text-gray-600 focus-visible:ring-1 focus-visible:ring-[#1fb2aa]"
+                                    className="h-11 bg-white border border-[#e2e8f0] rounded-lg pl-10 pr-4 text-[#0f172a] focus-visible:ring-1 focus-visible:ring-[#183a68]"
                                     value={searchInput}
                                     onChange={(e) => handleSearchChange(e.target.value)}
                                 />
                                 {isSearching && (
-                                    <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#1fb2aa] animate-spin" />
+                                    <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#183a68] animate-spin" />
                                 )}
                             </div>
                             {normalizedSearchInput.length > 0 && !isValidSearchEmail && (
@@ -467,19 +467,19 @@ export default function ClassProgress() {
 
                         {/* Search results dropdown */}
                         {searchResults.length > 0 && (
-                            <div className="border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+                            <div className="border border-[#e2e8f0] rounded-lg overflow-hidden shadow-none">
                                 {searchResults.map(student => {
                                     const isSelected = selectedStudents.some(s => s.id === student.id);
                                     return (
                                         <div
                                             key={student.id}
                                             onClick={() => toggleStudent(student)}
-                                            className={`flex items-center gap-3 px-4 py-3 border-b border-gray-50 last:border-0 transition-colors
+                                            className={`flex items-center gap-3 px-4 py-3 border-b border-gray-100 last:border-0 transition-colors
                                                 ${student.alreadyEnrolled
                                                     ? "bg-gray-50 cursor-not-allowed opacity-60"
                                                     : isSelected
-                                                        ? "bg-[#f0f9f9] cursor-pointer"
-                                                        : "bg-white hover:bg-gray-50 cursor-pointer"
+                                                        ? "bg-[#eaf2fd] cursor-pointer"
+                                                        : "bg-white hover:bg-[#f8fafc] cursor-pointer"
                                                 }`}
                                         >
                                             {/* Avatar */}
@@ -542,13 +542,13 @@ export default function ClassProgress() {
                         {/* Actions */}
                         <div className="flex justify-end gap-3 pt-2">
                             <Button variant="outline" onClick={closeModal}
-                                className="h-11 px-6 rounded-xl border-gray-200 font-bold text-gray-500">
+                                className="h-11 px-6 rounded-lg border-[#e2e8f0] font-bold text-gray-600 hover:bg-gray-50">
                                 Hủy
                             </Button>
                             <Button
                                 onClick={handleAddStudents}
                                 disabled={selectedStudents.length === 0 || !isValidSearchEmail || isEnrolling}
-                                className="bg-[#1fb2aa] hover:bg-[#1fb2aa]/90 text-white rounded-xl h-11 px-8 font-bold disabled:opacity-50 flex items-center gap-2"
+                                className="bg-[#183a68] hover:bg-[#122c50] text-white rounded-lg h-11 px-8 font-bold disabled:opacity-50 flex items-center gap-2 shadow-none"
                             >
                                 {isEnrolling
                                     ? <><Loader2 className="h-4 w-4 animate-spin" /> Đang thêm...</>
@@ -563,17 +563,10 @@ export default function ClassProgress() {
             <div className="w-full space-y-8">
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold text-gray-900">{className}</h1>
+                    <h1 className="font-display text-3xl font-bold text-[#0f172a] tracking-tight">{className}</h1>
                     <div className="flex items-center gap-3">
-                        {/* <Button
-                            onClick={() => setIsCreateTaskOpen(true)}
-                            variant="outline"
-                            className="border-[#1fb2aa] text-[#1fb2aa] hover:bg-[#f0fdfa] rounded-lg h-11 px-6 font-bold text-sm shadow-sm"
-                        >
-                            Tạo bài tập
-                        </Button> */}
                         <Button onClick={() => setIsModalOpen(true)}
-                            className="bg-[#1fb2aa] hover:bg-[#1fb2aa]/90 text-white rounded-lg h-11 px-6 font-bold text-sm shadow-sm">
+                            className="bg-[#183a68] hover:bg-[#122c50] text-white rounded-lg h-11 px-6 font-bold text-sm shadow-none">
                             Thêm học viên
                         </Button>
                     </div>
@@ -583,21 +576,21 @@ export default function ClassProgress() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                     {/* Card 1 — Target */}
-                    <Card className="rounded-2xl border border-gray-200 shadow-md bg-[#f0fdfa]/60 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <Card className="rounded-lg border border-[#e2e8f0] bg-white shadow-none">
                         <CardContent className="p-6 space-y-4">
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-8 h-8 rounded-lg bg-[#1fb2aa] flex items-center justify-center text-white">
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-8 h-8 rounded-lg bg-[#eaf2fd] flex items-center justify-center text-[#183a68]">
                                         <Target className="w-4 h-4" />
                                     </div>
-                                    <span className="font-bold text-gray-900 text-lg">Điểm mục tiêu</span>
+                                    <span className="font-bold text-[#0f172a] text-base">Điểm mục tiêu</span>
                                 </div>
                             </div>
 
-                            <div className="bg-white rounded-2xl p-5 shadow-md border border-gray-50">
+                            <div className="bg-[#f8fafc] rounded-lg p-5 border border-[#e2e8f0] shadow-none">
                                 <div className="flex justify-between items-center mb-4">
-                                    <span className="text-lg font-bold text-gray-500 tracking-wider">Mục tiêu</span>
-                                    <span className="text-3xl font-bold text-[#1fb2aa]">
+                                    <span className="text-sm font-semibold text-gray-500">Mục tiêu</span>
+                                    <span className="text-3xl font-bold text-[#183a68]">
                                         {statsLoading ? '—' : targetDisplay}
                                     </span>
                                 </div>
@@ -605,15 +598,15 @@ export default function ClassProgress() {
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="bg-white rounded-2xl p-3 border border-gray-50 shadow-md">
-                                    <p className="text-[12px] font-bold text-gray-500 mb-1 tracking-wider">Từ</p>
-                                    <p className="text-xs font-bold text-[#1fb2aa]">
+                                <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0] shadow-none">
+                                    <p className="text-xs font-semibold text-gray-500 mb-1">Từ</p>
+                                    <p className="text-sm font-bold text-[#0f172a]">
                                         {statsLoading ? '—' : startDisplay}
                                     </p>
                                 </div>
-                                <div className="bg-white rounded-2xl p-3 border border-gray-50 shadow-md">
-                                    <p className="text-[12px] font-bold text-gray-500 mb-1 tracking-wider">Đến</p>
-                                    <p className="text-xs font-bold text-[#1fb2aa]">
+                                <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0] shadow-none">
+                                    <p className="text-xs font-semibold text-gray-500 mb-1">Đến</p>
+                                    <p className="text-sm font-bold text-[#183a68]">
                                         {statsLoading ? '—' : endDisplay}
                                     </p>
                                 </div>
@@ -622,32 +615,32 @@ export default function ClassProgress() {
                     </Card>
 
                     {/* Card 2 — Writing counts */}
-                    <Card className="rounded-2xl border border-gray-200 shadow-md bg-[#f0fdfa]/60 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <Card className="rounded-lg border border-[#e2e8f0] bg-white shadow-none">
                         <CardContent className="p-6 space-y-4">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-[#1fb2aa] flex items-center justify-center text-white">
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-8 h-8 rounded-lg bg-[#eaf2fd] flex items-center justify-center text-[#183a68]">
                                     <Trophy className="w-4 h-4" />
                                 </div>
-                                <span className="font-bold text-gray-900 text-lg">Tổng số bài viết</span>
+                                <span className="font-bold text-[#0f172a] text-base">Tổng số bài viết</span>
                             </div>
 
-                            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-50 flex flex-col items-center justify-center text-center">
-                                <span className="text-4xl font-bold text-[#1fb2aa]">
+                            <div className="bg-[#f8fafc] rounded-lg p-6 border border-[#e2e8f0] shadow-none flex flex-col items-center justify-center text-center">
+                                <span className="text-4xl font-bold text-[#183a68]">
                                     {statsLoading ? '—' : totalWritings}
                                 </span>
-                                <span className="text-[15px] font-bold text-gray-500 mt-2 tracking-wider">Tổng số bài viết</span>
+                                <span className="text-xs font-semibold text-gray-500 mt-2">Tổng số bài viết</span>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="bg-white rounded-2xl p-3 border border-gray-50 shadow-md">
-                                    <p className="text-[12px] font-bold text-gray-500 mb-1 tracking-wider">Task 1</p>
-                                    <p className="text-sm font-bold text-[#1fb2aa]">
+                                <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0] shadow-none">
+                                    <p className="text-xs font-semibold text-gray-500 mb-1">Task 1</p>
+                                    <p className="text-sm font-bold text-[#0f172a]">
                                         {statsLoading ? '—' : `${totalTask1} bài`}
                                     </p>
                                 </div>
-                                <div className="bg-white rounded-2xl p-3 border border-gray-50 shadow-md">
-                                    <p className="text-[12px] font-bold text-gray-500 mb-1 tracking-wider">Task 2</p>
-                                    <p className="text-sm font-bold text-[#1fb2aa]">
+                                <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0] shadow-none">
+                                    <p className="text-xs font-semibold text-gray-500 mb-1">Task 2</p>
+                                    <p className="text-sm font-bold text-[#0f172a]">
                                         {statsLoading ? '—' : `${totalTask2} bài`}
                                     </p>
                                 </div>
@@ -656,34 +649,34 @@ export default function ClassProgress() {
                     </Card>
 
                     {/* Card 3 — Performance overview */}
-                    <Card className="rounded-2xl border border-gray-200 shadow-md bg-[#f0fdfa]/60 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <Card className="rounded-lg border border-[#e2e8f0] bg-white shadow-none">
                         <CardContent className="p-6 space-y-4">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-[#1fb2aa] flex items-center justify-center text-white">
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-8 h-8 rounded-lg bg-[#eaf2fd] flex items-center justify-center text-[#183a68]">
                                     <FileText className="w-4 h-4" />
                                 </div>
-                                <span className="font-bold text-gray-900 text-lg">Tổng quan tiến độ</span>
+                                <span className="font-bold text-[#0f172a] text-base">Tổng quan tiến độ</span>
                             </div>
 
-                            <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-50 flex flex-col items-center justify-center text-center">
-                                <span className="text-4xl font-bold text-[#1fb2aa]">
+                            <div className="bg-[#f8fafc] rounded-lg p-6 border border-[#e2e8f0] shadow-none flex flex-col items-center justify-center text-center">
+                                <span className="text-4xl font-bold text-[#183a68]">
                                     {statsLoading ? '—' : avgScore}
                                 </span>
-                                <span className="text-[15px] font-bold text-gray-500 mt-2 tracking-wider">Điểm trung bình lớp</span>
+                                <span className="text-xs font-semibold text-gray-500 mt-2">Điểm trung bình lớp</span>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="bg-white rounded-2xl p-3 border border-gray-50 shadow-md">
-                                    <p className="text-[12px] font-bold text-gray-500 mb-1 tracking-wider">Mức điểm tăng thêm</p>
+                                <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0] shadow-none">
+                                    <p className="text-xs font-semibold text-gray-500 mb-1">Mức điểm tăng thêm</p>
                                     <p className="text-sm font-bold text-[#1fb2aa]">
                                         {statsLoading ? '—' : improvement}
                                     </p>
                                 </div>
-                                <div className="bg-white rounded-2xl p-3 border border-gray-50 shadow-md">
-                                    <p className="text-[12px] font-bold text-gray-500 mb-1 tracking-wider">Số học viên đạt aim</p>
+                                <div className="bg-[#f8fafc] rounded-lg p-3 border border-[#e2e8f0] shadow-none">
+                                    <p className="text-xs font-semibold text-gray-500 mb-1">Số học viên đạt aim</p>
                                     <p className="text-sm font-bold">
                                         <span className="text-gray-400">{statsLoading ? '—' : reachedTarget}</span>
-                                        <span className="text-[#1fb2aa]">/{statsLoading ? '—' : totalStudents}</span>
+                                        <span className="text-[#183a68]">/{statsLoading ? '—' : totalStudents}</span>
                                     </p>
                                 </div>
                             </div>
@@ -728,31 +721,31 @@ export default function ClassProgress() {
 
 
                 {/* Students Table */}
-                <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-300">
+                <div className="bg-white rounded-lg shadow-none overflow-hidden border border-[#e2e8f0]">
                     <div className="p-4 border-b border-gray-100 flex items-center gap-4">
                         <div className="relative flex-1">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                             <Input
                                 placeholder="Tìm bằng tên học viên hoặc email"
-                                className="pl-10 bg-[#f8fafc] border-gray-200 rounded-lg h-10 text-sm"
+                                className="pl-10 bg-white border border-[#e2e8f0] rounded-lg h-10 text-sm text-[#0f172a] focus-visible:ring-1 focus-visible:ring-[#183a68]"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
                         <div className="flex items-center gap-3">
-                            <span className="text-sm font-bold text-gray-700 whitespace-nowrap">Lọc bài mới</span>
-                            <Switch checked={filterNew} onCheckedChange={setFilterNew} className="data-[state=checked]:bg-[#1fb2aa]" />
+                            <span className="text-sm font-bold text-[#0f172a] whitespace-nowrap">Lọc bài mới</span>
+                            <Switch checked={filterNew} onCheckedChange={setFilterNew} className="data-[state=checked]:bg-[#183a68]" />
                         </div>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
-                                <tr className="border-b border-gray-100 bg-white">
+                                <tr className="border-b border-[#e2e8f0] bg-white">
                                     <th className="w-8 px-4 py-4" />
-                                    <th className="px-4 py-4 text-xs font-bold text-gray-900">Tên học viên</th>
-                                    <th className="px-4 py-4 text-xs font-bold text-gray-900 text-left">Email</th>
-                                    <th className="px-4 py-4 text-xs font-bold text-gray-900 text-center">Điểm trung bình</th>
-                                    <th className="px-4 py-4 text-xs font-bold text-gray-900 text-center">Tổng bài viết</th>
+                                    <th className="px-4 py-4 text-xs font-bold text-[#0f172a]">Tên học viên</th>
+                                    <th className="px-4 py-4 text-xs font-bold text-[#0f172a] text-left">Email</th>
+                                    <th className="px-4 py-4 text-xs font-bold text-[#0f172a] text-center">Điểm trung bình</th>
+                                    <th className="px-4 py-4 text-xs font-bold text-[#0f172a] text-center">Tổng bài viết</th>
                                     <th className="w-12 px-4 py-4" />
                                 </tr>
                             </thead>
@@ -766,20 +759,20 @@ export default function ClassProgress() {
                                 ) : (
                                     filteredStudents.map((student) => (
                                         <tr key={student.id}
-                                            className="border-b border-gray-50 last:border-0 hover:bg-gray-50/50 transition-colors cursor-pointer"
+                                            className="border-b border-gray-100 last:border-0 hover:bg-[#f8fafc] transition-colors cursor-pointer"
                                             onClick={() => setLocation(`/student-pt/${student.id}?classId=${classId}&teacherEdit=1`)}>
                                             <td className="px-4 py-5 text-center">
                                                 {student.hasNewSubmissions && (
-                                                    <div className="w-2 h-2 rounded-full bg-red-500 mx-auto shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
+                                                    <div className="w-2 h-2 rounded-full bg-red-500 mx-auto" />
                                                 )}
                                             </td>
-                                            <td className="px-4 py-5 text-sm font-medium text-gray-900">
-                                                <Link href={`/student-pt/${student.id}?classId=${classId}&teacherEdit=1`} className="hover:text-[#1fb2aa] transition-colors cursor-pointer">
+                                            <td className="px-4 py-5 text-sm font-medium text-[#0f172a]">
+                                                <Link href={`/student-pt/${student.id}?classId=${classId}&teacherEdit=1`} className="hover:text-[#183a68] transition-colors cursor-pointer">
                                                     {student.name}
                                                 </Link>
                                             </td>
                                             <td className="px-4 py-5 text-sm text-gray-500 text-left">{student.email}</td>
-                                            <td className="px-4 py-5 text-sm text-gray-600 text-center font-semibold">{student.overallScore}</td>
+                                            <td className="px-4 py-5 text-sm text-[#0f172a] text-center font-semibold">{student.overallScore}</td>
                                             <td className="px-4 py-5 text-sm text-gray-600 text-center">{student.totalEssays}</td>
                                             <td className="px-4 py-5 text-center">
                                                 <button
@@ -800,33 +793,33 @@ export default function ClassProgress() {
 
                 {/* Remove Student Confirm Dialog */}
                 <Dialog open={isRemoveDialogOpen} onOpenChange={(open) => { if (!open) { setIsRemoveDialogOpen(false); setStudentToRemove(null); setRemoveError(""); } }}>
-                    <DialogContent className="sm:max-w-[400px] rounded-2xl border-none shadow-2xl p-0 overflow-hidden">
+                    <DialogContent className="sm:max-w-[400px] rounded-xl border border-[#e2e8f0] shadow-none p-0 overflow-hidden">
                         <div className="p-8 text-center">
                             <div className="h-16 w-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
                                 <UserMinus className="h-8 w-8 text-red-500" />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">Xoá học viên?</h3>
+                            <h3 className="text-xl font-bold text-[#0f172a] mb-2">Xoá học viên?</h3>
                             <p className="text-gray-500 text-sm">
-                                Bạn có chắc chắn muốn xoá <span className="font-bold text-gray-900">{studentToRemove?.name}</span> khỏi lớp học?
+                                Bạn có chắc chắn muốn xoá <span className="font-bold text-[#0f172a]">{studentToRemove?.name}</span> khỏi lớp học?
                                 Học viên sẽ không còn xuất hiện trong danh sách lớp.
                             </p>
                             {removeError && (
                                 <p className="text-xs font-bold text-red-500 mt-3">{removeError}</p>
                             )}
                         </div>
-                        <div className="bg-gray-50 p-4 flex gap-3">
+                        <div className="bg-gray-50 p-4 flex gap-3 border-t border-[#e2e8f0]">
                             <Button
                                 variant="ghost"
                                 onClick={() => { setIsRemoveDialogOpen(false); setStudentToRemove(null); setRemoveError(""); }}
                                 disabled={isRemoving}
-                                className="flex-1 font-bold text-gray-900 border border-gray-300 rounded-xl px-4 py-3 hover:bg-gray-100"
+                                className="flex-1 font-bold text-[#0f172a] border border-[#e2e8f0] rounded-lg px-4 py-3 hover:bg-gray-100"
                             >
                                 Huỷ
                             </Button>
                             <Button
                                 onClick={handleRemoveStudent}
                                 disabled={isRemoving}
-                                className="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl disabled:opacity-60"
+                                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg disabled:opacity-60"
                             >
                                 {isRemoving ? "Đang xoá..." : "Xoá"}
                             </Button>
@@ -837,7 +830,7 @@ export default function ClassProgress() {
                 {/* Pagination */}
                 <div className="flex items-center justify-center gap-2 pt-4 pb-8">
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400"><ChevronLeft className="h-4 w-4" /></Button>
-                    <Button variant="secondary" className="h-8 w-8 text-sm font-medium bg-[#f0f9f9] text-[#1fb2aa]">1</Button>
+                    <Button variant="secondary" className="h-8 w-8 text-sm font-medium bg-[#eaf2fd] text-[#183a68] rounded-lg">1</Button>
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400"><ChevronRight className="h-4 w-4" /></Button>
                 </div>
             </div>

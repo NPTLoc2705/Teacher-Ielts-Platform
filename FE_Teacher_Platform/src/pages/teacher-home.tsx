@@ -249,8 +249,8 @@ export default function TeacherHome() {
         <div className="flex flex-col gap-6 mb-10">
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Lop hoc</h2>
-              <p className="text-gray-500 font-medium">Quan ly cac lop hoc IELTS cua ban</p>
+              <h2 className="font-display text-3xl font-bold text-[#0f172a] mb-2 tracking-tight">Lớp học</h2>
+              <p className="text-[#64748b] font-medium text-sm">Quản lý các lớp học IELTS của bạn</p>
             </div>
           </div>
 

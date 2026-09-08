@@ -7,7 +7,7 @@ import { useLocation, useSearch } from "wouter";
 const PRIMARY = "#183A68";
 const NEUTRAL_GREY = "#64748B";
 const BORDER_GREY = "#E2E8F0";
-const BG = "#F8F9FA";
+const BG = "#f1f3fc";
 const PRIMARY_CONTAINER = "#F1F5F9";
 const SUCCESS = "#10B981";
 const WARNING = "#F59E0B";
@@ -99,7 +99,7 @@ function ScoreCell({ diemGV, diemAI }: { diemGV: number | null; diemAI: number }
             {/* Tooltip */}
             {show && (
                 <div
-                    className="absolute z-50 bottom-full left-1/2 mb-2 w-48 rounded-xl shadow-xl border border-gray-100 bg-white px-4 py-3 text-xs text-left pointer-events-none"
+                    className="absolute z-50 bottom-full left-1/2 mb-2 w-48 rounded-lg shadow-none border border-[#e2e8f0] bg-white px-4 py-3 text-xs text-left pointer-events-none"
                     style={{ transform: "translateX(-50%)" }}
                 >
                     <div className="flex items-center justify-between mb-1.5">
@@ -112,10 +112,6 @@ function ScoreCell({ diemGV, diemAI }: { diemGV: number | null; diemAI: number }
                         <span className="font-medium text-gray-500">Điểm AI</span>
                         <span className="font-bold" style={{ color: AI_COLOR }}>{diemAI.toFixed(1)}</span>
                     </div>
-                    <div
-                        className="absolute left-1/2 top-full -translate-x-1/2"
-                        style={{ width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "6px solid #fff", filter: "drop-shadow(0 1px 0 #e2e8f0)" }}
-                    />
                 </div>
             )}
         </div>
@@ -135,7 +131,7 @@ function GradingModal({
             style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
             onClick={e => { if (e.target === e.currentTarget) onClose(); }}
         >
-            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden">
+            <div className="bg-white rounded-xl border border-[#e2e8f0] shadow-none w-full max-w-2xl overflow-hidden">
                 {/* Header */}
                 <div className="flex items-start justify-between px-7 pt-7 pb-4">
                     <h3 className="text-base font-bold text-center flex-1 leading-snug" style={{ color: PRIMARY }}>
@@ -160,7 +156,7 @@ function GradingModal({
                     {/* Sửa bài chấm của AI */}
                     <button
                         onClick={() => onSelect("ai_edit")}
-                        className="w-full rounded-2xl border-2 px-6 py-5 text-left transition-all hover:shadow-md active:scale-[0.99]"
+                        className="w-full rounded-lg border-2 px-6 py-5 text-left transition-all active:scale-[0.99]"
                         style={{ borderColor: AI_COLOR }}
                     >
                         <p className="text-base font-bold mb-1.5 text-center" style={{ color: AI_COLOR }}>
@@ -174,7 +170,7 @@ function GradingModal({
                     {/* Tự chấm */}
                     <button
                         onClick={() => onSelect("manual")}
-                        className="w-full rounded-2xl border-2 px-6 py-5 text-left transition-all hover:shadow-md active:scale-[0.99]"
+                        className="w-full rounded-lg border-2 px-6 py-5 text-left transition-all active:scale-[0.99]"
                         style={{ borderColor: GV_COLOR }}
                     >
                         <p className="text-base font-bold mb-1.5 text-center" style={{ color: GV_COLOR }}>
@@ -296,16 +292,16 @@ export default function AssignmentDetail() {
                 <div className="flex items-center justify-between mb-6">
                     <button
                         onClick={() => setLocation("/teacher/assignment-management")}
-                        className="flex items-center gap-2 h-9 px-4 rounded-xl text-sm font-semibold border transition-colors hover:bg-[#F1F5F9]"
+                        className="flex items-center gap-2 h-9 px-4 rounded-lg text-sm font-semibold border transition-colors hover:bg-[#F1F5F9]"
                         style={{ borderColor: BORDER_GREY, color: NEUTRAL_GREY }}
                     >
                         <ArrowLeft className="h-4 w-4" />
                         Trở lại
                     </button>
-                    <h1 className="text-2xl font-bold" style={{ color: PRIMARY }}>Chi tiết kết quả</h1>
+                    <h1 className="font-display text-3xl font-bold tracking-tight" style={{ color: PRIMARY }}>Chi tiết kết quả</h1>
                     <button
                         onClick={() => setLocation("/class-progress")}
-                        className="flex items-center gap-2 h-9 px-4 rounded-xl text-sm font-semibold border transition-colors hover:bg-[#F1F5F9]"
+                        className="flex items-center gap-2 h-9 px-4 rounded-lg text-sm font-semibold border transition-colors hover:bg-[#F1F5F9]"
                         style={{ borderColor: BORDER_GREY, color: PRIMARY }}
                     >
                         Đến lớp
@@ -314,13 +310,13 @@ export default function AssignmentDetail() {
                 </div>
 
                 {/* Summary Card */}
-                <div className="rounded-2xl border mb-6 overflow-hidden" style={{ backgroundColor: "#fff", borderColor: BORDER_GREY }}>
+                <div className="rounded-lg border mb-6 overflow-hidden" style={{ backgroundColor: "#fff", borderColor: BORDER_GREY }}>
                     <div className="px-6 py-4 border-b" style={{ borderColor: BORDER_GREY }}>
                         <span className="font-bold text-base" style={{ color: PRIMARY }}>Lớp: Sáng thứ 2 - 4 - 6</span>
                     </div>
                     <div className="grid grid-cols-4 divide-x px-2 py-5 divide-gray-200">
                         <div className="flex items-start gap-3 px-5">
-                            <div className="h-11 w-11 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: PRIMARY_CONTAINER }}>
+                            <div className="h-11 w-11 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: PRIMARY_CONTAINER }}>
                                 <FileText className="h-5 w-5" style={{ color: PRIMARY }} />
                             </div>
                             <div>
@@ -387,7 +383,7 @@ export default function AssignmentDetail() {
                 </div>
 
                 {/* Main card: search + table */}
-                <div className="rounded-2xl border overflow-hidden" style={{ backgroundColor: "#fff", borderColor: BORDER_GREY }}>
+                <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: "#fff", borderColor: BORDER_GREY }}>
                     {/* Search + action row */}
                     <div className="px-6 py-4 border-b flex items-center gap-4" style={{ borderColor: BORDER_GREY }}>
                         <div className="relative flex-1 max-w-xs">
@@ -396,14 +392,14 @@ export default function AssignmentDetail() {
                                 placeholder="Tìm kiếm học viên..."
                                 value={search}
                                 onChange={e => handleSearchChange(e.target.value)}
-                                className="pl-10 h-10 rounded-xl text-sm"
+                                className="pl-10 h-10 rounded-lg text-sm"
                                 style={{ borderColor: BORDER_GREY, color: PRIMARY }}
                             />
                         </div>
                         <div className="flex-1" />
                         <button
                             onClick={() => setSortDesc(v => !v)}
-                            className="flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium border transition-colors hover:bg-[#F1F5F9]"
+                            className="flex items-center gap-2 h-10 px-4 rounded-lg text-sm font-medium border transition-colors hover:bg-[#F1F5F9]"
                             style={{ borderColor: BORDER_GREY, color: NEUTRAL_GREY }}
                         >
                             {sortDesc ? "Điểm cao đến thấp" : "Điểm thấp đến cao"}
@@ -412,14 +408,14 @@ export default function AssignmentDetail() {
                         <div className="relative">
                             <button
                                 onClick={() => setStatusDropOpen(v => !v)}
-                                className="flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium border transition-colors hover:bg-[#F1F5F9]"
+                                className="flex items-center gap-2 h-10 px-4 rounded-lg text-sm font-medium border transition-colors hover:bg-[#F1F5F9]"
                                 style={{ borderColor: BORDER_GREY, color: NEUTRAL_GREY }}
                             >
                                 {filterStatus === "Tất cả" ? "Trạng thái" : filterStatus}
                                 <ChevronDown className="h-3.5 w-3.5" />
                             </button>
                             {statusDropOpen && (
-                                <div className="absolute top-full right-0 mt-1 bg-white border rounded-xl shadow-lg z-50 overflow-hidden min-w-[140px]" style={{ borderColor: BORDER_GREY }}>
+                                <div className="absolute top-full right-0 mt-1 bg-white border rounded-lg shadow-none z-50 overflow-hidden min-w-[140px]" style={{ borderColor: BORDER_GREY }}>
                                     {(["Tất cả", "Đúng giờ", "Nộp muộn"] as const).map(opt => (
                                         <div
                                             key={opt}
@@ -468,7 +464,7 @@ export default function AssignmentDetail() {
                                 <tr
                                     key={s.id}
                                     onClick={() => handleRowClick(s)}
-                                    className="border-t transition-colors hover:bg-[#F8F9FA] cursor-pointer"
+                                    className="border-t transition-colors hover:bg-[#f8fafc] cursor-pointer"
                                     style={{ borderColor: BORDER_GREY }}
                                 >
                                     <td className="px-6 py-5 text-sm font-semibold whitespace-nowrap" style={{ color: PRIMARY }}>{s.ten}</td>
