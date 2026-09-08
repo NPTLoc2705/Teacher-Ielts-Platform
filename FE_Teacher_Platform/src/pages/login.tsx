@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation } from 'wouter';
-import { GraduationCap, Eye, EyeOff, KeyRound } from 'lucide-react';
+import { GraduationCap, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../hooks/use-auth';
-import { HARDCODED_TEACHER_CREDENTIALS } from '../services/authService';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
 export default function LoginPage() {
   const [, setLocation] = useLocation();
   const { login } = useAuth();
-  const [email, setEmail] = useState(HARDCODED_TEACHER_CREDENTIALS.email);
-  const [password, setPassword] = useState(HARDCODED_TEACHER_CREDENTIALS.password);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,12 +26,6 @@ export default function LoginPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleFillDemo = () => {
-    setEmail(HARDCODED_TEACHER_CREDENTIALS.email);
-    setPassword(HARDCODED_TEACHER_CREDENTIALS.password);
-    setError('');
   };
 
   return (
@@ -78,27 +71,6 @@ export default function LoginPage() {
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
-
-              {/* Demo Account Box - Flat Border Style */}
-              <div className="rounded-lg border border-[#c6dcfa] bg-[#eaf2fd]/70 p-3 text-xs text-[#183a68] flex items-center justify-between">
-                <div>
-                  <div className="font-semibold text-[#183a68] flex items-center gap-1.5 mb-1">
-                    <KeyRound className="h-3.5 w-3.5 text-[#183a68]" />
-                    <span>Tai khoan mau (The Exam Study):</span>
-                  </div>
-                  <div className="text-[#475569] font-mono text-[11px] space-y-0.5">
-                    <div>Email: <span className="font-semibold text-[#0f172a]">{HARDCODED_TEACHER_CREDENTIALS.email}</span></div>
-                    <div>Mat khau: <span className="font-semibold text-[#0f172a]">{HARDCODED_TEACHER_CREDENTIALS.password}</span></div>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleFillDemo}
-                  className="px-2.5 py-1.5 text-xs font-semibold text-[#183a68] hover:text-[#0f2a4a] bg-white hover:bg-[#eaf2fd] border border-[#c6dcfa] rounded-md transition-colors cursor-pointer"
-                >
-                  Dien nhanh
                 </button>
               </div>
 

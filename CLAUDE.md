@@ -26,13 +26,16 @@ Teacher-Ielts-Platform/                       <- Monorepo root
 │       ├── Service/                          <- Layer 4: Business logic services & interfaces
 │       │   ├── Service.csproj
 │       │   └── ...
-│       └── TeacherPlatform/                  <- Layer 5: ASP.NET Core Web API entry project
-│           ├── Controllers/                  <- API endpoints (controllers)
-│           ├── Properties/                   <- launchSettings.json
-│           ├── appsettings.json              <- App configuration template
-│           ├── appsettings.Development.json  <- Local dev configuration
-│           ├── Program.cs                    <- Service registration (DI) & pipeline config
-│           └── TeacherPlatform.csproj
+│       ├── TeacherPlatform/                  <- Layer 5: ASP.NET Core Web API entry project
+│       │   ├── Controllers/                  <- API endpoints (controllers)
+│       │   ├── Properties/                   <- launchSettings.json
+│       │   ├── appsettings.json              <- App configuration template
+│       │   ├── appsettings.Development.json  <- Local dev configuration
+│       │   ├── Program.cs                    <- Service registration (DI) & pipeline config
+│       │   └── TeacherPlatform.csproj
+│       └── TeacherPlatform.Tests/            <- Unit & Integration tests (xUnit)
+│           ├── TeacherPlatform.Tests.csproj
+│           └── ...
 │
 ├── FE_Teacher_Platform/                      <- Frontend (React 19 + TypeScript + Vite + Tailwind CSS v4)
 │   ├── .gitignore                            <- Frontend build/cache/secret ignore rules

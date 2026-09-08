@@ -1,6 +1,6 @@
 # /migrate — Run EF Core Migrations
 
-Runs `dotnet ef migrations add` against the correct project pair for **Ielts-System**.
+Runs `dotnet ef migrations add` against the correct project pair for **TeacherPlatform**.
 
 ## Usage
 ```
@@ -10,40 +10,26 @@ Runs `dotnet ef migrations add` against the correct project pair for **Ielts-Sys
 ## What to run
 
 ```bash
-cd d:\GitHub\ielts-writing-task\Ielts-System
+cd BE_Teacher_Platform/Teacher_Platform
 dotnet ef migrations add <MigrationName> \
   --project DAL \
-  --startup-project Ielts_System \
-  --context WritingAiHubDbContext \
+  --startup-project TeacherPlatform \
+  --context TeacherPlatformDbContext \
   --output-dir Migrations
 ```
 
 ## Rules
 - `--project DAL` → migration files land in `DAL/Migrations/` ✅
-- `--startup-project Ielts_System` → reads `appsettings.json` for connection string ✅
+- `--startup-project TeacherPlatform` → reads `appsettings.json` for connection string ✅
 - Never run from repo root — the DbContext is in `DAL`, not the API project.
 - After adding, verify the new `.cs` migration file in `DAL/Migrations/` before applying.
 
 ## Apply to database
 
 ```bash
-cd d:\GitHub\ielts-writing-task\Ielts-System
+cd BE_Teacher_Platform/Teacher_Platform
 dotnet ef database update \
   --project DAL \
-  --startup-project Ielts_System \
-  --context WritingAiHubDbContext
-```
-
-## Tracking-System (separate DbContext)
-
-```bash
-cd d:\GitHub\ielts-writing-task\Tracking-System
-dotnet ef migrations add <MigrationName> \
-  --project Tracking-System \
-  --context TrackingDbContext \
-  --output-dir Migrations
-
-dotnet ef database update \
-  --project Tracking-System \
-  --context TrackingDbContext
+  --startup-project TeacherPlatform \
+  --context TeacherPlatformDbContext
 ```

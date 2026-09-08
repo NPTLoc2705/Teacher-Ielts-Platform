@@ -29,21 +29,6 @@ export interface RegisterRequest {
   password: string;
   displayName?: string;
 }
-
-export const HARDCODED_TEACHER_CREDENTIALS = {
-  email: 'teacher@wispace.edu.vn',
-  password: 'teacher123',
-};
-
-export const HARDCODED_TEACHER_USER: UserInfo = {
-  id: 1,
-  username: 'teacher_demo',
-  email: HARDCODED_TEACHER_CREDENTIALS.email,
-  role: 'Teacher',
-  name: 'Teacher Demo',
-  displayName: 'Teacher Demo',
-};
-
 export const authService = {
   async login(email: string, password: string): Promise<LoginResponse> {
     const res = await fetch(`${API_BASE_URL}/login`, {

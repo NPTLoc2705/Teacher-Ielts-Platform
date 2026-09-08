@@ -4,52 +4,46 @@ Starts the full local development environment: ASP.NET Core API + React/Vite fro
 
 ## Usage
 ```
-/dev [api|frontend|tracking|all]
+/dev [api|frontend|all]
 ```
 Default (no argument) = `all`.
 
 ---
 
-## Start everything (3 terminals)
+## Start everything (2 terminals)
 
-### Terminal 1 — Ielts-System API (ASP.NET Core, port 7279 HTTPS / 5269 HTTP)
+### Terminal 1 — TeacherPlatform API (ASP.NET Core, port 7244 HTTPS / 5269 HTTP)
 ```bash
-cd d:\GitHub\ielts-writing-task\Ielts-System\Ielts_System
+cd BE_Teacher_Platform/Teacher_Platform/TeacherPlatform
 dotnet run
 ```
-Swagger UI: https://localhost:7279/swagger
+Swagger UI: https://localhost:7244/swagger
 
 ### Terminal 2 — React Frontend (Vite, port 5173)
 ```bash
-cd d:\GitHub\ielts-writing-task
+cd FE_Teacher_Platform
 npm run dev
 ```
 App: http://localhost:5173  
-The Vite proxy (`vite.config.ts`) forwards `/api` calls to `https://localhost:7279`.
-
-### Terminal 3 — Tracking-System API (ASP.NET Core, separate port)
-```bash
-cd d:\GitHub\ielts-writing-task\Tracking-System\Tracking-System
-dotnet run
-```
+API requests connect to backend via `VITE_BACKEND=https://localhost:7244`.
 
 ---
 
 ## Start only the API
 ```bash
-cd d:\GitHub\ielts-writing-task\Ielts-System\Ielts_System
+cd BE_Teacher_Platform/Teacher_Platform/TeacherPlatform
 dotnet run
 ```
 
 ## Start only the frontend
 ```bash
-cd d:\GitHub\ielts-writing-task
+cd FE_Teacher_Platform
 npm run dev
 ```
 
 ---
 
 ## Notes
-- `ASPNETCORE_ENVIRONMENT=Development` is set in `.claude/settings.json` so hot-reload and Swagger are enabled.
-- The frontend is TypeScript — run `npm run check` to typecheck without starting the server.
-- Do NOT use `npm run start` (that's the production build).
+- `ASPNETCORE_ENVIRONMENT=Development` is configured so hot-reload and Swagger are enabled.
+- The frontend is TypeScript + Vite — run `npm run build` or `npx tsc` to typecheck.
+- Oxlint is available via `npm run lint` for high-speed frontend linting.

@@ -22,8 +22,9 @@ This document outlines the core principles and rules for developing, maintaining
 
 ## 4. Database & Query Performance (CRITICAL)
 - **NO N+1 QUERIES:** This is strictly forbidden. It is the most common cause of performance issues.
-- **No for loop when use query db**
+- **No for loop when query db**
   - *Never* execute a database query inside a loop.
-  - Always use eager loading (e.g., Drizzle's `with` operator), `JOIN`s, or batching (e.g., DataLoader) to fetch related entities in a single query or a fixed number of queries.
+  - Always use eager loading (e.g., EF Core's `.Include()` and `.ThenInclude()`), `JOIN`s, or projection (`.Select()`) to fetch related entities in a single round-trip.
+  - Use `.AsNoTracking()` for read-only queries to maximize performance and reduce memory allocations.
 - **Indexing:** Ensure appropriate indexes are added to database columns that are frequently used in `WHERE`, `ORDER BY`, or `JOIN` clauses.
 - **Query Optimization:** Review and profile complex queries to ensure they perform efficiently, especially as the data volume grows.

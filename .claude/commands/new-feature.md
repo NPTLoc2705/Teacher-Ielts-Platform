@@ -7,24 +7,24 @@ Creates all five backend files (BO → DAL → Repo → Service → Controller) 
 /new-feature <FeatureName> [FeatureGroup]
 ```
 
-- `FeatureName`: PascalCase noun (e.g. `QuizAttempt`, `ReferralCode`)  
-- `FeatureGroup` (optional): sub-folder grouping (e.g. `Quiz`, `Payments`). If omitted, files go in the feature root of each layer.
+- `FeatureName`: PascalCase noun (e.g. `Assignment`, `StudentFeedback`)  
+- `FeatureGroup` (optional): sub-folder grouping (e.g. `Classroom`, `Evaluation`). If omitted, files go in the feature root of each layer.
 
 ---
 
 ## Files to create
 
-Given `/new-feature QuizAttempt Quiz`:
+Given `/new-feature Assignment Classroom`:
 
 | Layer | Path | Class |
 |---|---|---|
-| BusinessObject | `Ielts-System/BusinessObject/Quiz/QuizAttempt.cs` | Entity class |
-| DAL | `Ielts-System/DAL/QuizDAO/QuizAttemptDAO.cs` | DAO with `WritingAiHubDbContext` injection |
-| Repository (interface) | `Ielts-System/Repository/QuizRepo/IQuizAttemptRepository.cs` | `IQuizAttemptRepository` interface |
-| Repository (impl) | `Ielts-System/Repository/QuizRepo/QuizAttemptRepository.cs` | Calls DAO only |
-| Service (interface) | `Ielts-System/Service/QuizService/IQuizAttemptService.cs` | `IQuizAttemptService` interface |
-| Service (impl) | `Ielts-System/Service/QuizService/QuizAttemptService.cs` | Injects `IQuizAttemptRepository` |
-| Controller | `Ielts-System/Ielts_System/Controllers/Quiz/QuizAttemptController.cs` | Injects `IQuizAttemptService` only |
+| BusinessObject | `BE_Teacher_Platform/Teacher_Platform/BusinessObject/Classroom/Assignment.cs` | Entity class |
+| DAL | `BE_Teacher_Platform/Teacher_Platform/DAL/ClassroomDAO/AssignmentDAO.cs` | DAO with `TeacherPlatformDbContext` injection |
+| Repository (interface) | `BE_Teacher_Platform/Teacher_Platform/Repository/ClassroomRepo/IAssignmentRepository.cs` | `IAssignmentRepository` interface |
+| Repository (impl) | `BE_Teacher_Platform/Teacher_Platform/Repository/ClassroomRepo/AssignmentRepository.cs` | Calls DAO only |
+| Service (interface) | `BE_Teacher_Platform/Teacher_Platform/Service/ClassroomService/IAssignmentService.cs` | `IAssignmentService` interface |
+| Service (impl) | `BE_Teacher_Platform/Teacher_Platform/Service/ClassroomService/AssignmentService.cs` | Injects `IAssignmentRepository` |
+| Controller | `BE_Teacher_Platform/Teacher_Platform/TeacherPlatform/Controllers/Classroom/AssignmentController.cs` | Injects `IAssignmentService` only |
 
 ---
 
@@ -58,9 +58,9 @@ namespace DAL.{FeatureGroup}DAO
 {
     public class {FeatureName}DAO
     {
-        private readonly WritingAiHubDbContext _context;
+        private readonly TeacherPlatformDbContext _context;
 
-        public {FeatureName}DAO(WritingAiHubDbContext context)
+        public {FeatureName}DAO(TeacherPlatformDbContext context)
         {
             _context = context;
         }
@@ -135,11 +135,13 @@ namespace Service.{FeatureGroup}Service
 ## Template: Controller
 
 ```csharp
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.{FeatureGroup}Service;
 
-namespace Ielts_System.Controllers.{FeatureGroup}
+namespace TeacherPlatform.Controllers.{FeatureGroup}
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class {FeatureName}Controller : ControllerBase
@@ -161,7 +163,7 @@ namespace Ielts_System.Controllers.{FeatureGroup}
 ## After scaffolding — register DI in `Program.cs`
 
 ```csharp
-// In Ielts-System/Ielts_System/Program.cs
+// In BE_Teacher_Platform/Teacher_Platform/TeacherPlatform/Program.cs
 builder.Services.AddScoped<{FeatureName}DAO>();
 builder.Services.AddScoped<I{FeatureName}Repository, {FeatureName}Repository>();
 builder.Services.AddScoped<I{FeatureName}Service, {FeatureName}Service>();
@@ -172,5 +174,5 @@ builder.Services.AddScoped<I{FeatureName}Service, {FeatureName}Service>();
 ## Frontend counterpart (optional)
 
 If the feature needs a frontend service:
-- File: `client/src/Service/{FeatureName}Service.ts`
-- Pattern: one exported async function per endpoint, using `authFetch` from `lib/authFetch.ts`
+- File: `FE_Teacher_Platform/src/services/{featureName}Service.ts`
+- Pattern: API client module using `authHelper.getAuthHeaders()` and `import.meta.env.VITE_BACKEND`

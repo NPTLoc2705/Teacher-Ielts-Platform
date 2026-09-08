@@ -1,6 +1,6 @@
 # /test-backend — Run Backend Tests
 
-Runs the .NET test suite for Ielts-System.
+Runs the .NET test suite for TeacherPlatform.
 
 ## Usage
 ```
@@ -13,35 +13,37 @@ Runs the .NET test suite for Ielts-System.
 ## Run all tests
 
 ```bash
-cd d:\GitHub\ielts-writing-task\Ielts-System
-dotnet test Ielts-System.sln --no-restore --verbosity normal
+cd BE_Teacher_Platform/Teacher_Platform
+dotnet test Teacher_Platform.sln --verbosity normal
 ```
 
 ## Run tests matching a filter
 
 ```bash
-cd d:\GitHub\ielts-writing-task\Ielts-System
-dotnet test Ielts-System.sln --filter "FullyQualifiedName~<filter>" --verbosity normal
+cd BE_Teacher_Platform/Teacher_Platform
+dotnet test Teacher_Platform.sln --filter "FullyQualifiedName~<filter>" --verbosity normal
 ```
 
-Example — run only payment tests:
+Example — run only classroom tests:
 ```bash
-dotnet test Ielts-System.sln --filter "FullyQualifiedName~Payment" --verbosity normal
+cd BE_Teacher_Platform/Teacher_Platform
+dotnet test Teacher_Platform.sln --filter "FullyQualifiedName~Class" --verbosity normal
 ```
 
 ## Run with coverage (if a coverage tool is installed)
 
 ```bash
-dotnet test Ielts-System.sln --collect:"XPlat Code Coverage" --verbosity normal
+cd BE_Teacher_Platform/Teacher_Platform
+dotnet test Teacher_Platform.sln --collect:"XPlat Code Coverage" --verbosity normal
 ```
 
 ---
 
 ## Notes
-- Tests live inside the solution (`Ielts-System.sln`) — always run from `Ielts-System/`, not from a layer folder.
-- If no test project exists yet: test projects should be added to the solution as `{Layer}.Tests` (e.g. `Service.Tests`).
-- TypeScript type-check (frontend):
+- Tests live inside the solution (`Teacher_Platform.sln`) in `TeacherPlatform.Tests`.
+- Frontend check:
   ```bash
-  cd d:\GitHub\ielts-writing-task
-  npm run check
+  cd FE_Teacher_Platform
+  npm run build
+  npm run lint
   ```
